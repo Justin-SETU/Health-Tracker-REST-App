@@ -19,9 +19,12 @@ class JavalinConfig {
 
     private fun registerRoutes(app: Javalin) {
         app.get("/api/users", HealthTrackerController::getAllUsers)
-        app.get("/api/users/{user-id}", HealthTrackerController::getUserByUserId)
-        app.post("/api/users", HealthTrackerController::addUser)
-    }
 
+        app.get("/api/users/{user-id}", HealthTrackerController::getUserByUserId)
+        app.delete("/api/users/{user-id}", HealthTrackerController::deleteUser)
+        app.patch("/api/users/{user-id}", HealthTrackerController::updateUser)
+
+        app.get("/api/users/email/{email}", HealthTrackerController::getUserByEmail)
+    }
 
 }

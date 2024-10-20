@@ -1,6 +1,11 @@
 package ie.setu.domain.repository
 
 import ie.setu.domain.User
+import ie.setu.domain.db.Users
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
+import ie.setu.utils.mapToUser
+
 
 class UserDAO {
 
@@ -11,12 +16,18 @@ class UserDAO {
         User(name = "Carol", email = "carol@singer.com", id = 3)
     )
 
-    fun getAll() : ArrayList<User>{
-        return users
+    fun getAll(): ArrayList<User> {
+        val userList: ArrayList<User> = arrayListOf()
+        transaction {
+            Users.selectAll().map {
+                userList.add(mapToUser(it))
+            }
+        }
+        return userList
     }
 
     fun findById(id: Int): User?{
-        return users.find {it.id == id}
+        return null
     }
 
     fun save(user: User){
@@ -24,7 +35,7 @@ class UserDAO {
     }
 
     fun findByEmail(email: String) :User?{
-        return users.find { it.email == email }
+        return null
     }
 
     fun delete(id: Int) {

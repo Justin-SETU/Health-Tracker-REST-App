@@ -8,9 +8,7 @@ class JavalinConfig {
 
     private fun getRemoteAssignedPort(): Int {
         val remotePort = System.getenv("PORT")
-        return if (remotePort != null) {
-            Integer.parseInt(remotePort)
-        } else 7001
+        return remotePort?.toInt() ?: 8080
     }
 
     fun startJavalinService(): Javalin {

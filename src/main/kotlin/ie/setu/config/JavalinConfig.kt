@@ -6,6 +6,13 @@ import io.javalin.apibuilder.ApiBuilder.*
 
 class JavalinConfig {
 
+    private fun getRemoteAssignedPort(): Int {
+        val remotePort = System.getenv("PORT")
+        return if (remotePort != null) {
+            Integer.parseInt(remotePort)
+        } else 7001
+    }
+
     fun startJavalinService(): Javalin {
 
         val app = Javalin.create().apply {
@@ -27,11 +34,5 @@ class JavalinConfig {
         app.get("/api/users/email/{email}", HealthTrackerController::getUserByEmail)
     }
 
-    private fun getRemoteAssignedPort(): Int {
-        val remotePort = System.getenv("PORT")
-        return if (remotePort != null) {
-            Integer.parseInt(remotePort)
-        } else 8080
-    }
 
 }

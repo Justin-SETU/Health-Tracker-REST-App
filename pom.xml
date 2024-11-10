@@ -104,6 +104,12 @@
             <version>2.3.232</version>
             <scope>test</scope>
         </dependency>
+        <!-- kotlin logging -->
+        <dependency>
+            <groupId>io.github.oshai</groupId>
+            <artifactId>kotlin-logging-jvm</artifactId>
+            <version>7.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -13,6 +13,7 @@ import ie.setu.domain.Activity
 import ie.setu.domain.User
 import ie.setu.domain.repository.ActivityDAO
 
+//main endpoints and http requests for handling API requests, handles different things
 object HealthTrackerController {
 
     private val userDao = UserDAO()
@@ -90,5 +91,23 @@ object HealthTrackerController {
         activityDAO.save(activity)
         ctx.json(activity)
     }
+    fun deleteActivityById(ctx: Context) {
 
+        activityDAO.delete(ctx.pathParam("user-id").toInt())
+    }
+
+    fun updateActivity(ctx: Context) {
+
+//        val mapper = jacksonObjectMapper()
+//        val userUpdates = mapper.readValue<User>(ctx.body())
+//        userDao.update(
+//            id = ctx.pathParam("user-id").toInt(),
+//            user=userUpdates)
+        val mapper = jacksonObjectMapper()
+        val activityUpdates = mapper.readValue<Activity>(ctx.body())
+        activityDAO.updateActivity(
+            id = ctx.pathParam("user-id").toInt(),
+            activity=activityUpdates)
+
+    }
 }

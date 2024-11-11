@@ -5,7 +5,7 @@ import io.javalin.Javalin
 import io.javalin.json.JavalinJackson
 import ie.setu.utils.jsonObjectMapper
 
-
+//configuring the javalin instance, server settings, custom json configuration, port setting, exception handling
 class JavalinConfig {
 
     fun startJavalinService(): Javalin {
@@ -33,6 +33,8 @@ class JavalinConfig {
         app.get("/api/activities", HealthTrackerController::getAllActivities)
         app.post("/api/activities", HealthTrackerController::addActivity)
         app.get("/api/users/{user-id}/activities", HealthTrackerController::getActivitiesByUserId)
+        app.delete("/api/activities/{user-id}", HealthTrackerController::deleteActivityById)
+        app.patch("/api/activities/{user-id}", HealthTrackerController::updateActivity)
     }
 
     private fun getRemoteAssignedPort(): Int {

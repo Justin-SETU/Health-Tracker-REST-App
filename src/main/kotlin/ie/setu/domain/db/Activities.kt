@@ -2,11 +2,13 @@ package ie.setu.domain.db
 
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.jodatime.datetime
 
 
 // SRP - Responsibility is to manage one activity.
 //       Database wise, this is the table object.
 
+//It is the activities table in database
 object Activities : Table("activities") {
     val id = integer("id").autoIncrement()
     val description = varchar("description", 100)

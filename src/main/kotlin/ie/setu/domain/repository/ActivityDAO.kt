@@ -4,8 +4,10 @@ import ie.setu.domain.Activity
 import ie.setu.domain.db.Activities
 import ie.setu.utils.mapToActivity
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
+//activity data access objects that handles database operations
 class ActivityDAO {
 
     //Get all the activities in the database regardless of user id
@@ -48,6 +50,27 @@ class ActivityDAO {
                 it[userId] = activity.userId
             }
         }
+    }
+
+    //delete an activity from database
+    fun delete(id: Int){
+        return transaction {
+            Activities.deleteWhere { Activities.id eq id}
+        }
+    }
+
+    //update and activity in the database
+    fun updateActivity(id: Int, activity: Activity){
+        transaction {
+            Activities.update({ Activities.id eq id }) {
+                it[description] = activity.description
+                it[duration] = activity.duration
+                it[started] = activity.started
+                it[calories] = activity.calories
+                it[userId] = activity.userId
+            }
+        }
+
     }
 
 }

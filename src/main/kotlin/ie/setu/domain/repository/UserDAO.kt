@@ -10,6 +10,7 @@ import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
+//user data access objects that handles database operations
 class UserDAO {
 
     fun getAll(): ArrayList<User> {

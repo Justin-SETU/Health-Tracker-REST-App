@@ -61,7 +61,7 @@ class ActivityDAO {
 
     //update and activity in the database
     fun updateActivity(id: Int, activity: Activity){
-        return transaction {
+        transaction {
             Activities.update({ Activities.id eq id }) {
                 it[description] = activity.description
                 it[duration] = activity.duration

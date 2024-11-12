@@ -1,10 +1,14 @@
 package ie.setu.utils
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import java.net.http.HttpResponse
 
 fun jsonObjectMapper(): ObjectMapper
         = ObjectMapper()
@@ -12,3 +16,14 @@ fun jsonObjectMapper(): ObjectMapper
     .registerModule(JodaModule())
     .registerModule(KotlinModule.Builder().build())
     .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+
+
+//More info: https://www.baeldung.com/jackson-object-mapper-tutorial
+//           https://www.baeldung.com/jackson-serialize-dates
+//           https://www.baeldung.com/kotlin/reified-functions
+
+inline fun <reified T: Any> jsonToObject(json: String) : T
+        = jacksonObjectMapper()
+    .registerModule(JodaModule())
+    .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+    .readValue<T>(json)

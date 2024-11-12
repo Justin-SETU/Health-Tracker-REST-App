@@ -1,0 +1,225 @@
+Index: src/main/kotlin/ie/setu/utils/DBUtilities.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ie.setu.utils\r\n\r\nimport ie.setu.domain.Activity\r\nimport ie.setu.domain.db.Activities\r\n\r\nimport ie.setu.domain.User\r\nimport ie.setu.domain.db.Users\r\n\r\nimport org.jetbrains.exposed.sql.ResultRow\r\n\r\n//converts results from database into user classes\r\nfun mapToUser(it: ResultRow) = User(\r\n    id = it[Users.id],\r\n    name = it[Users.name],\r\n    email = it[Users.email]\r\n)\r\n//converts results from database into activity classes\r\nfun mapToActivity(it: ResultRow) = Activity(\r\n    id = it[Activities.id],\r\n    description = it[Activities.description],\r\n    duration = it[Activities.duration],\r\n    started = it[Activities.started],\r\n    calories = it[Activities.calories],\r\n    userId = it[Activities.userId]\r\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/ie/setu/utils/DBUtilities.kt b/src/main/kotlin/ie/setu/utils/DBUtilities.kt
+--- a/src/main/kotlin/ie/setu/utils/DBUtilities.kt	(revision c67ce44f9467e3fae55f9c7af5b04374b4db6598)
++++ b/src/main/kotlin/ie/setu/utils/DBUtilities.kt	(date 1731406715790)
+@@ -4,7 +4,9 @@
+ import ie.setu.domain.db.Activities
+ 
+ import ie.setu.domain.User
++import ie.setu.domain.Workout
+ import ie.setu.domain.db.Users
++import ie.setu.domain.db.Workouts
+ 
+ import org.jetbrains.exposed.sql.ResultRow
+ 
+@@ -22,4 +24,13 @@
+     started = it[Activities.started],
+     calories = it[Activities.calories],
+     userId = it[Activities.userId]
+-)
+\ No newline at end of file
++)
++
++//db query into kotlin object
++fun mapToWorkout(it: ResultRow) = Workout(
++    id = it[Workouts.id],
++    workout = it[Workouts.workout],
++    duration = it[Workouts.duration],
++    started = it[Workouts.started],
++    userId = it[Workouts.userId]
++)
+Index: src/main/kotlin/ie/setu/domain/db/Workouts.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/ie/setu/domain/db/Workouts.kt b/src/main/kotlin/ie/setu/domain/db/Workouts.kt
+new file mode 100644
+--- /dev/null	(date 1731406190636)
++++ b/src/main/kotlin/ie/setu/domain/db/Workouts.kt	(date 1731406190636)
+@@ -0,0 +1,18 @@
++package ie.setu.domain.db
++
++import org.jetbrains.exposed.sql.ReferenceOption
++import org.jetbrains.exposed.sql.Table
++import org.jetbrains.exposed.sql.jodatime.datetime
++
++// SRP - Responsibility is to manage one activity.
++//       Database wise, this is the table object.
++
++object Workouts : Table("workouts") {
++    val id = integer("id").autoIncrement()
++    val workout = varchar("description", 100)
++    val duration = double("duration")
++    val started = datetime("started")
++    val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
++
++    override val primaryKey = PrimaryKey(Workouts.id, name = "PK_Workouts_ID")
++}
+\ No newline at end of file
+Index: src/main/kotlin/ie/setu/domain/Workout.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/ie/setu/domain/Workout.kt b/src/main/kotlin/ie/setu/domain/Workout.kt
+new file mode 100644
+--- /dev/null	(date 1731405910966)
++++ b/src/main/kotlin/ie/setu/domain/Workout.kt	(date 1731405910966)
+@@ -0,0 +1,10 @@
++package ie.setu.domain
++
++import org.joda.time.DateTime
++
++data class Workout (
++    var id: Int,
++    var userId: Int,
++    var workout: String,
++    var duration: Double,
++    var started: DateTime)
+\ No newline at end of file
+Index: src/main/kotlin/ie/setu/domain/repository/WorkoutDAO.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/ie/setu/domain/repository/WorkoutDAO.kt b/src/main/kotlin/ie/setu/domain/repository/WorkoutDAO.kt
+new file mode 100644
+--- /dev/null	(date 1731407705920)
++++ b/src/main/kotlin/ie/setu/domain/repository/WorkoutDAO.kt	(date 1731407705920)
+@@ -0,0 +1,21 @@
++package ie.setu.domain.repository
++
++import ie.setu.domain.Workout
++import ie.setu.domain.db.Workouts
++import ie.setu.utils.mapToWorkout
++import org.jetbrains.exposed.sql.selectAll
++import org.jetbrains.exposed.sql.transactions.transaction
++
++class WorkoutDAO {
++
++    //To get all workouts in the database
++    fun getAll(): ArrayList<Workout>{
++        val workoutList: ArrayList<Workout> = ArrayList()
++        transaction {
++            Workouts.selectAll().map { workoutList.add(mapToWorkout(it)) }
++        }
++        return workoutList
++    }
++
++    //To add a workout
++}
+\ No newline at end of file
+Index: src/main/kotlin/ie/setu/domain/db/BmiValues.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/ie/setu/domain/db/BmiValues.kt b/src/main/kotlin/ie/setu/domain/db/Bmis.kt
+rename from src/main/kotlin/ie/setu/domain/db/BmiValues.kt
+rename to src/main/kotlin/ie/setu/domain/db/Bmis.kt
+--- a/src/main/kotlin/ie/setu/domain/db/BmiValues.kt	(revision c67ce44f9467e3fae55f9c7af5b04374b4db6598)
++++ b/src/main/kotlin/ie/setu/domain/db/Bmis.kt	(date 1731404595233)
+@@ -4,7 +4,7 @@
+ import org.jetbrains.exposed.sql.Table
+ import org.jetbrains.exposed.sql.jodatime.datetime
+ 
+-object BmiValues : Table("bmi") {
++object Bmis : Table("bmi") {
+     val id =integer("id").autoIncrement()
+     val weight = double("weight")
+     val height = double("height")
+@@ -12,5 +12,5 @@
+     val timestamp = datetime("timestamp")
+     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
+ 
+-    override val primaryKey = PrimaryKey(BmiValues.id, name = "PK_BmiValues_ID")
++    override val primaryKey = PrimaryKey(Bmis.id, name = "PK_BmiValues_ID")
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"94a1eaf0-4fd2-4187-9580-9c1bca90ffa2\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/ActivityController.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/db/BmiValues.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/BmiDAO.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/HealthTrackerController.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/UserController.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/Bmi.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/Bmi.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/ActivityDAO.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/ActivityDAO.kt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Kotlin File\" />\r\n        <option value=\"Kotlin Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <excluded-from-favorite>\r\n      <branch-storage>\r\n        <map>\r\n          <entry type=\"LOCAL\">\r\n            <value>\r\n              <list>\r\n                <branch-info repo=\"$PROJECT_DIR$\" source=\"master\" />\r\n              </list>\r\n            </value>\r\n          </entry>\r\n        </map>\r\n      </branch-storage>\r\n    </excluded-from-favorite>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Justin-SETU&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Justin-SETU/Health-Tracker-Backend.git&quot;,\r\n    &quot;accountId&quot;: &quot;0e4e0e42-8d13-4aec-8232-235dc45a5fb9&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2n9bFrUzN1U5jsAenYBag8FSlr4\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;JUnit.UserDAOTest.executor&quot;: &quot;Coverage&quot;,\r\n    &quot;Kotlin.AppKt.executor&quot;: &quot;Run&quot;,\r\n    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,\r\n    &quot;Maven.Health-tracker-rest [validate].executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;FeatureBranch&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/itsju/Downloads/healthtracker-41&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\" selected=\"Kotlin.AppKt\">\r\n    <configuration name=\"UserDAOTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Health-tracker-rest\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"ie.setu.repository.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"ie.setu.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"ie.setu.repository\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"ie.setu.repository.UserDAOTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"\" />\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"AppKt\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"ie.setu.AppKt\" />\r\n      <module name=\"Health-tracker-rest\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"JUnit.UserDAOTest\" />\r\n      <item itemvalue=\"Kotlin.AppKt\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Kotlin.AppKt\" />\r\n        <item itemvalue=\"JUnit.UserDAOTest\" />\r\n        <item itemvalue=\"Kotlin.AppKt\" />\r\n        <item itemvalue=\"JUnit.UserDAOTest\" />\r\n        <item itemvalue=\"Kotlin.AppKt\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"94a1eaf0-4fd2-4187-9580-9c1bca90ffa2\" name=\"Changes\" comment=\"\" />\r\n      <created>1728388140168</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1728388140168</updated>\r\n      <workItem from=\"1728388141280\" duration=\"6559000\" />\r\n      <workItem from=\"1728726969248\" duration=\"6000\" />\r\n      <workItem from=\"1728999300373\" duration=\"1823000\" />\r\n      <workItem from=\"1729411811160\" duration=\"938000\" />\r\n      <workItem from=\"1729412768840\" duration=\"8710000\" />\r\n      <workItem from=\"1729594341275\" duration=\"1092000\" />\r\n      <workItem from=\"1729599826049\" duration=\"6920000\" />\r\n      <workItem from=\"1729892716676\" duration=\"14000\" />\r\n      <workItem from=\"1730190295222\" duration=\"1054000\" />\r\n      <workItem from=\"1730192732563\" duration=\"5168000\" />\r\n      <workItem from=\"1731135559646\" duration=\"20620000\" />\r\n      <workItem from=\"1731244573738\" duration=\"14617000\" />\r\n      <workItem from=\"1731281812971\" duration=\"852000\" />\r\n      <workItem from=\"1731282688311\" duration=\"13875000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"OPEN_GENERIC_TABS\">\r\n      <map>\r\n        <entry key=\"6310ba3a-0b70-44dd-bb67-df5b7315e253\" value=\"TOOL_WINDOW\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"6310ba3a-0b70-44dd-bb67-df5b7315e253\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c67ce44f9467e3fae55f9c7af5b04374b4db6598)
++++ b/.idea/workspace.xml	(date 1731407407329)
+@@ -5,14 +5,12 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="94a1eaf0-4fd2-4187-9580-9c1bca90ffa2" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/ActivityController.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/db/BmiValues.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/BmiDAO.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/Workout.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/db/Workouts.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/WorkoutDAO.kt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/HealthTrackerController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/UserController.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/Bmi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/Bmi.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/ActivityDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/ActivityDAO.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/db/BmiValues.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/db/Bmis.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/utils/DBUtilities.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/utils/DBUtilities.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -43,7 +41,7 @@
+     </excluded-from-favorite>
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="master" />
++        <entry key="$PROJECT_DIR$" value="BmiFeature" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -71,24 +69,24 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;JUnit.UserDAOTest.executor&quot;: &quot;Coverage&quot;,
+-    &quot;Kotlin.AppKt.executor&quot;: &quot;Run&quot;,
+-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+-    &quot;Maven.Health-tracker-rest [validate].executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;FeatureBranch&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/itsju/Downloads/healthtracker-41&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "JUnit.UserDAOTest.executor": "Coverage",
++    "Kotlin.AppKt.executor": "Run",
++    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
++    "Maven.Health-tracker-rest [validate].executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "git-widget-placeholder": "Workout",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "C:/Users/itsju/Downloads/healthtracker-41",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager" selected="Kotlin.AppKt">
+     <configuration name="UserDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="Health-tracker-rest" />

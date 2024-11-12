@@ -1,0 +1,24 @@
+Index: src/main/kotlin/ie/setu/domain/Workout.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ie.setu.domain\r\n\r\nimport org.joda.time.DateTime\r\n\r\n//Handles the data for the workout tracker\r\ndata class Workout (\r\n    var id: Int,\r\n    var userid: Int,\r\n    var workout: String,\r\n    var duration: Double,\r\n    var started: DateTime\r\n)\r\n\r\n
+===================================================================
+diff --git a/src/main/kotlin/ie/setu/domain/Workout.kt b/src/main/kotlin/ie/setu/domain/Workout.kt
+--- a/src/main/kotlin/ie/setu/domain/Workout.kt	(revision 236982c89c89beb1255832854b6dd8b20b0d2626)
++++ b/src/main/kotlin/ie/setu/domain/Workout.kt	(date 1731412941376)
+@@ -2,12 +2,9 @@
+ 
+ import org.joda.time.DateTime
+ 
+-//Handles the data for the workout tracker
+ data class Workout (
+     var id: Int,
+-    var userid: Int,
++    var userId: Int,
+     var workout: String,
+     var duration: Double,
+-    var started: DateTime
+-)
+-
++    var started: DateTime)
+\ No newline at end of file

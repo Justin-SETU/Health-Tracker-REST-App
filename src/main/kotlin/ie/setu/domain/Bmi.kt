@@ -7,6 +7,6 @@ data class Bmi (
     var weight: Double,
     var height: Double,
     var userId: Int,
-    var bmiCalc:String,
+    var bmiCalc:Double,
     var timestamp: DateTime
 )

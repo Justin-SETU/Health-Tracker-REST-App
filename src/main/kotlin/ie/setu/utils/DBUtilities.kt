@@ -5,19 +5,22 @@ import ie.setu.domain.Bmi
 import ie.setu.domain.db.Activities
 
 import ie.setu.domain.User
-import ie.setu.domain.db.BmiValues
+import ie.setu.domain.db.Bmis
 import ie.setu.domain.db.Users
 
 import org.jetbrains.exposed.sql.ResultRow
 
-//converts results from database into user classes
+//designed to map a database row with a data object
+//When query database, results are returned as ResultRow
+
+//converts results from database into user object
 fun mapToUser(it: ResultRow) = User(
     id = it[Users.id],
     name = it[Users.name],
     email = it[Users.email],
     password = it[Users.password]
 )
-//converts results from database into activity classes
+//converts results from database into activity
 fun mapToActivity(it: ResultRow) = Activity(
     id = it[Activities.id],
     description = it[Activities.description],
@@ -27,12 +30,12 @@ fun mapToActivity(it: ResultRow) = Activity(
     userId = it[Activities.userId]
 )
 
-//converts results from database into bmi classes
+//converts results from database into bmi
 fun mapToBmi(it: ResultRow) = Bmi(
-    id = it[BmiValues.id],
-    weight = it[BmiValues.weight],
-    height = it[BmiValues.height],
-    userId = it[BmiValues.userId],
-    bmiCalc = it[BmiValues.BmiCalc],
-    timestamp = it[BmiValues.timestamp],
+    id = it[Bmis.id],
+    weight = it[Bmis.weight],
+    height = it[Bmis.height],
+    bmiCalc = it[Bmis.bmiCalc],
+    timestamp = it[Bmis.timestamp],
+    userId = it[Bmis.userId],
 )

@@ -52,18 +52,19 @@ object ActivityController {
         activityDAO.save(activity)
         ctx.json(activity)
     }
+
+
     fun deleteActivityById(ctx: Context) {
 
-        activityDAO.delete(ctx.pathParam("user-id").toInt())
+        activityDAO.delete(ctx.pathParam("id").toInt())
     }
 
     fun updateActivity(ctx: Context) {
 
         val mapper = jacksonObjectMapper().registerModule(JodaModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
         val activityUpdates = mapper.readValue<Activity>(ctx.body())
-        activityDAO.updateActivity(
-            id = ctx.pathParam("id").toInt(),
-            activity=activityUpdates)
+        activityDAO.updateActivity(id = ctx.pathParam("id").toInt(), activity=activityUpdates)
 
     }
 

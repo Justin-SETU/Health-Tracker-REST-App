@@ -14,8 +14,7 @@ class ActivityDAO {
     fun getAll(): ArrayList<Activity> {
         val activitiesList: ArrayList<Activity> = arrayListOf()
         transaction {
-            Activities.selectAll().map {
-                activitiesList.add(mapToActivity(it)) }
+            Activities.selectAll().map { activitiesList.add(mapToActivity(it)) }
         }
         return activitiesList
     }
@@ -23,17 +22,14 @@ class ActivityDAO {
     //Find a specific activity by activity id
     fun findByActivityId(id: Int): Activity?{
         return transaction {
-            Activities.selectAll().where { Activities.id eq id}
-                .map{mapToActivity(it)}
-                .firstOrNull()
+            Activities.selectAll().where { Activities.id eq id}.map{mapToActivity(it)}.firstOrNull()
         }
     }
 
     //Find all activities for a specific user id
     fun findByUserId(userId: Int): List<Activity>{
         return transaction {
-            Activities.selectAll().where {Activities.userId eq userId}
-                .map {mapToActivity(it)}
+            Activities.selectAll().where {Activities.userId eq userId}.map {mapToActivity(it)}
         }
     }
 
@@ -68,7 +64,6 @@ class ActivityDAO {
                 it[userId] = activity.userId
             }
         }
-
     }
 
 }

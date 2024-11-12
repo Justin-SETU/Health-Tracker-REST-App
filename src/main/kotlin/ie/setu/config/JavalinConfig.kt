@@ -51,7 +51,10 @@ class JavalinConfig {
         //--------------------------------
 
         //Bmi Features
-        app.post("/api/bmi/calculate", BMIController::calculateBmi)
+        app.get("/api/bmi", BMIController:: getBmi)
+        app.post("/api/bmi/add-bmi", BMIController::saveBmi)
+        app.get("/api/bmi/delete", BMIController::deleteBmi)
+        app.patch("/api/bmi/update/{id}", BMIController::updateBmi)
     }
 
     private fun getRemoteAssignedPort(): Int {

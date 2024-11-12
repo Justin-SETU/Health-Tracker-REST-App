@@ -1,9 +1,11 @@
 package ie.setu.utils
 
 import ie.setu.domain.Activity
+import ie.setu.domain.Bmi
 import ie.setu.domain.db.Activities
 
 import ie.setu.domain.User
+import ie.setu.domain.db.BmiValues
 import ie.setu.domain.db.Users
 
 import org.jetbrains.exposed.sql.ResultRow
@@ -23,4 +25,14 @@ fun mapToActivity(it: ResultRow) = Activity(
     started = it[Activities.started],
     calories = it[Activities.calories],
     userId = it[Activities.userId]
+)
+
+//converts results from database into bmi classes
+fun mapToBmi(it: ResultRow) = Bmi(
+    id = it[BmiValues.id],
+    weight = it[BmiValues.weight],
+    height = it[BmiValues.height],
+    userId = it[BmiValues.userId],
+    bmiCalc = it[BmiValues.BmiCalc],
+    timestamp = it[BmiValues.timestamp],
 )

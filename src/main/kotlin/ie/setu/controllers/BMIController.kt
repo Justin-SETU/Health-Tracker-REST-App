@@ -26,6 +26,16 @@ object BMIController {
         }
     }
 
+//    fun getAllBmi(ctx: Context) {
+//        val bimes = BmiDAO.getbmi()
+//        if (bimes.size != 0) {
+//            ctx.status(200)
+//        } else {
+//            ctx.status(404)
+//        }
+//        ctx.json(bimes)
+//    }
+
 }
 
 

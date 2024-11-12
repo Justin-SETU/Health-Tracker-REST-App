@@ -1,6 +1,7 @@
 package ie.setu.config
 
 import ie.setu.controllers.ActivityController
+import ie.setu.controllers.BMIController
 import ie.setu.controllers.UserController
 import io.javalin.Javalin
 import io.javalin.json.JavalinJackson
@@ -43,10 +44,14 @@ class JavalinConfig {
 
         //Activity Features
         app.get("/api/activities", ActivityController ::getAllActivities)
-        app.post("/api/activities", ActivityController::addActivity)
+        app.post("/api/activities/add", ActivityController::addActivity)
         app.get("/api/users/{user-id}/activities", ActivityController:: getActivitiesByUserId)
         app.delete("/api/activities/{user-id}", ActivityController::deleteActivityById)
         app.patch("/api/activities/{id}", ActivityController::updateActivity)
+        //--------------------------------
+
+        //Bmi Features
+        app.post("/api/bmi/calculate", BMIController::calculateBmi)
     }
 
     private fun getRemoteAssignedPort(): Int {

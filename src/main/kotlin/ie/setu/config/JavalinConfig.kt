@@ -1,6 +1,7 @@
 package ie.setu.config
 
 import ie.setu.controllers.ActivityController
+import ie.setu.controllers.BMIController
 import ie.setu.controllers.UserController
 import io.javalin.Javalin
 import io.javalin.json.JavalinJackson
@@ -25,17 +26,32 @@ class JavalinConfig {
     }
 
     private fun registerRoutes(app: Javalin) {
+        //User Features
+        //User Login
+        app.post("/api/users/login-user", UserController::loginUser)
+        //Show users
         app.get("/api/users", UserController::getAllUsers)
-        app.get("/api/users/{user-id}", UserController::getUserByUserId)
-        app.post("/api/users", UserController::addUser)
-        app.delete("/api/users/{user-id}", UserController::deleteUser)
-        app.patch("/api/users/{user-id}", UserController::updateUser)
+        //create a new user
+        app.post("/api/users/create-user", UserController::addUser)
+        //Delete a user
+        app.delete("/api/users/delete/{user-id}", UserController::deleteUser)
+        //Update a user
+        app.patch("/api/users/update/{user-id}", UserController::updateUser)
+        //Addons
+        app.get("/api/users/id/{user-id}", UserController::getUserByUserId)
         app.get("/api/users/email/{email}", UserController::getUserByEmail)
+        //-----------------------------
+
+        //Activity Features
         app.get("/api/activities", ActivityController ::getAllActivities)
-        app.post("/api/activities", ActivityController::addActivity)
+        app.post("/api/activities/add", ActivityController::addActivity)
         app.get("/api/users/{user-id}/activities", ActivityController:: getActivitiesByUserId)
         app.delete("/api/activities/{user-id}", ActivityController::deleteActivityById)
         app.patch("/api/activities/{id}", ActivityController::updateActivity)
+        //--------------------------------
+
+        //Bmi Features
+        app.post("/api/bmi/calculate", BMIController::calculateBmi)
     }
 
     private fun getRemoteAssignedPort(): Int {

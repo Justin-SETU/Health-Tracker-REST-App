@@ -23,8 +23,7 @@ class ActivityDAO {
     //Find a specific activity by activity id
     fun findByActivityId(id: Int): Activity?{
         return transaction {
-            Activities
-                .selectAll().where { Activities.id eq id}
+            Activities.selectAll().where { Activities.id eq id}
                 .map{mapToActivity(it)}
                 .firstOrNull()
         }
@@ -33,8 +32,7 @@ class ActivityDAO {
     //Find all activities for a specific user id
     fun findByUserId(userId: Int): List<Activity>{
         return transaction {
-            Activities
-                .selectAll().where {Activities.userId eq userId}
+            Activities.selectAll().where {Activities.userId eq userId}
                 .map {mapToActivity(it)}
         }
     }

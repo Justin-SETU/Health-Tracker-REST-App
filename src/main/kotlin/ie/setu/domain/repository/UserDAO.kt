@@ -1,7 +1,7 @@
 package ie.setu.domain.repository
 
-import ie.setu.domain.LoginModel
 import ie.setu.domain.User
+import ie.setu.domain.UserLogin
 import ie.setu.domain.db.Users
 import ie.setu.utils.mapToUser
 import org.jetbrains.exposed.sql.*
@@ -13,8 +13,10 @@ class UserDAO {
 
 
     //User Login
-    fun loginUser(model: LoginModel): Boolean {
+    //additional UserLogin data class created since we need to verify username and password only
+    fun loginUser(model: UserLogin): Boolean {
         return transaction {
+            //Used filtering with expression and improvised of https://www.baeldung.com/kotlin/exposed-persistence
             Users.selectAll().where { Users.email eq model.email and (Users.password eq model.password) }
                 .singleOrNull() != null
         }

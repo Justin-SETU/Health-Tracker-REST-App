@@ -6,9 +6,9 @@ import io.javalin.http.Context
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import ie.setu.domain.LoginModel
 
 import ie.setu.domain.User
+import ie.setu.domain.UserLogin
 
 
 //main endpoints and http requests for handling API requests, handles different things
@@ -19,7 +19,7 @@ object UserController {
     //Api end point for user login using email and password
     fun loginUser(ctx: Context) {
         val mapper = jacksonObjectMapper()
-        val user = mapper.readValue<LoginModel>(ctx.body())
+        val user = mapper.readValue<UserLogin>(ctx.body())
         val userExist = userDao.loginUser(user)
 
         if (userExist) {

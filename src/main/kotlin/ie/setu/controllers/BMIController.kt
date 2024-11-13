@@ -1,41 +1,48 @@
 package ie.setu.controllers
 
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+
+import com.fasterxml.jackson.module.kotlin.readValue
 import ie.setu.domain.Bmi
 import ie.setu.domain.repository.BmiDAO
-import ie.setu.domain.repository.UserDAO
+
+
 import io.javalin.http.Context
-import ie.setu.utils.jsonToObject
+
 
 object BMIController {
 
-    private val userDao = UserDAO()
-    private var bmiDAO = BmiDAO()
+    private val bmiDAO = BmiDAO()
 
-
-    fun calculateBmi(ctx: Context) {
-        val bmi: Bmi = jsonToObject(ctx.body())
-        val userId = userDao.findById(bmi.userId)
-        if (userId != null) {
-            val bmiId = bmiDAO.findBmi(bmi)
-            bmi.id = bmiId
-            ctx.json(bmi)
-            ctx.status(201)
-        } else {
-            ctx.status(404)
-        }
+    fun saveBmi(ctx: Context) {
+        val mapper = jacksonObjectMapper()
+            .registerModule(JavaTimeModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+        val bmi = mapper.readValue<Bmi>(ctx.body())
+        bmiDAO.saveBmi(bmi)
+        ctx.json(bmi)
     }
 
-//    fun getAllBmi(ctx: Context) {
-//        val bimes = BmiDAO.getbmi()
-//        if (bimes.size != 0) {
-//            ctx.status(200)
-//        } else {
-//            ctx.status(404)
-//        }
-//        ctx.json(bimes)
-//    }
 
+    fun getBmi(ctx: Context) {
+        val mapper = jacksonObjectMapper()
+        .registerModule(JavaTimeModule())
+        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+        ctx.json(mapper.writeValueAsString(bmiDAO.getBmilist()))
+    }
+
+    fun deleteBmi(ctx: Context) {
+        bmiDAO.deleteBmi(ctx.pathParam("id").toInt())
+    }
+
+    fun updateBmi(ctx: Context) {
+        val mapper = jacksonObjectMapper().registerModule(JavaTimeModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+        val updateBmi = mapper.readValue<Bmi>(ctx.body())
+        bmiDAO.updateBmi(id = ctx.pathParam("id").toInt(), bmi = updateBmi)
+    }
 }
 
 

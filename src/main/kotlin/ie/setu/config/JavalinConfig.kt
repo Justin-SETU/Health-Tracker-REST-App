@@ -45,7 +45,7 @@ class JavalinConfig {
         //Activity Features
         app.get("/api/activities", ActivityController ::getAllActivities)
         app.post("/api/activities/add", ActivityController::addActivity)
-        app.get("/api/users/{user-id}/activities", ActivityController:: getActivitiesByUserId)
+        app.get("/api/activities/{user-id}", ActivityController:: getActivitiesByUserId)
         app.delete("/api/activities/{user-id}", ActivityController::deleteActivityById)
         app.patch("/api/activities/{id}", ActivityController::updateActivity)
         //--------------------------------
@@ -53,7 +53,7 @@ class JavalinConfig {
         //Bmi Features
         app.get("/api/bmi", BMIController:: getBmi)
         app.post("/api/bmi/add-bmi", BMIController::saveBmi)
-        app.get("/api/bmi/delete", BMIController::deleteBmi)
+        app.delete("/api/bmi/delete", BMIController::deleteBmi)
         app.patch("/api/bmi/update/{id}", BMIController::updateBmi)
     }
 

@@ -8,8 +8,8 @@ object Bmis : Table("bmis") {
     val id =integer("id").autoIncrement()
     val weight = double("weight")
     val height = double("height")
-    val bmiCalc = double("bmiCalc")
-    val timestamp = datetime("timestamp")
+    val bmicalc = double("bmicalc")
+//    val starttime = datetime("starttime")
     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
 
     override val primaryKey = PrimaryKey(Bmis.id, name = "PK_BmiValues_ID")

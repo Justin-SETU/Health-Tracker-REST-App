@@ -27,8 +27,8 @@ class BmiDAO {
                 it[id] = bmi.id
                 it[weight] = bmi.weight
                 it[height] = bmi.height
-                it[bmiCalc] = bmi.bmiCalc
-                it[timestamp] = bmi.timestamp
+                it[bmicalc] = bmi.bmicalc
+//                it[starttime] = bmi.starttime
                 it[userId] = bmi.userId
             }
         }
@@ -40,8 +40,8 @@ class BmiDAO {
                 it[Bmis.id] = bmi.id
                 it[weight] = bmi.weight
                 it[height] = bmi.height
-                it[bmiCalc] = bmi.bmiCalc
-                it[timestamp] = bmi.timestamp
+                it[bmicalc] = bmi.bmicalc
+//                it[starttime] = bmi.starttime
                 it[userId] = bmi.userId
             }
         }

@@ -3,16 +3,18 @@ package ie.setu.controllers
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+
 import com.fasterxml.jackson.module.kotlin.readValue
 import ie.setu.domain.Bmi
 import ie.setu.domain.repository.BmiDAO
-import ie.setu.domain.repository.UserDAO
+
+
 import io.javalin.http.Context
-import ie.setu.utils.jsonToObject
+
 
 object BMIController {
 
-    private var bmiDAO = BmiDAO()
+    private val bmiDAO = BmiDAO()
 
     fun saveBmi(ctx: Context) {
         val mapper = jacksonObjectMapper()
@@ -28,7 +30,7 @@ object BMIController {
         val mapper = jacksonObjectMapper()
         .registerModule(JavaTimeModule())
         .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        ctx.json(mapper.writeValueAsString(getBmi(ctx)))
+        ctx.json(mapper.writeValueAsString(bmiDAO.getBmilist()))
     }
 
     fun deleteBmi(ctx: Context) {

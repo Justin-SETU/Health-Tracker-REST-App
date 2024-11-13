@@ -6,7 +6,4 @@ data class User (var id: Int,
                  var email:String,
                  var password:String)
 
-data class LoginModel(
-    val email: String,
-    val password: String
-)
+

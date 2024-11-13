@@ -45,13 +45,16 @@ class JavalinConfig {
         //Activity Features
         app.get("/api/activities", ActivityController ::getAllActivities)
         app.post("/api/activities/add", ActivityController::addActivity)
-        app.get("/api/users/{user-id}/activities", ActivityController:: getActivitiesByUserId)
+        app.get("/api/activities/{user-id}", ActivityController:: getActivitiesByUserId)
         app.delete("/api/activities/{user-id}", ActivityController::deleteActivityById)
         app.patch("/api/activities/{id}", ActivityController::updateActivity)
         //--------------------------------
 
         //Bmi Features
-        app.post("/api/bmi/calculate", BMIController::calculateBmi)
+        app.get("/api/bmi", BMIController:: getBmi)
+        app.post("/api/bmi/add-bmi", BMIController::saveBmi)
+        app.delete("/api/bmi/delete", BMIController::deleteBmi)
+        app.patch("/api/bmi/update/{id}", BMIController::updateBmi)
     }
 
     private fun getRemoteAssignedPort(): Int {

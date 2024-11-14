@@ -8,64 +8,52 @@ import io.javalin.http.Context
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import ie.setu.domain.Activity
+import ie.setu.domain.Workout
+import ie.setu.domain.repository.WorkoutDAO
 
-import ie.setu.domain.repository.ActivityDAO
-
-//main endpoints and http requests for handling API requests, handles different things
-object ActivityController {
+object WorkoutController {
+    private val workoutDAO = WorkoutDAO()
     private val userDao = UserDAO()
-    private val activityDAO = ActivityDAO()
 
     //--------------------------------------------------------------
-    // ActivityDAO specifics
+    // workoutDAO specifics
     //-------------------------------------------------------------
 
-    fun getAllActivities(ctx: Context) {
+    fun getAllworkouts(ctx: Context) {
         //mapper handles the deserialization of Joda date into a String.
         val mapper = jacksonObjectMapper()
             .registerModule(JodaModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        ctx.json(mapper.writeValueAsString( activityDAO.getAll() ))
+        ctx.json(mapper.writeValueAsString( workoutDAO.getAll() ))
     }
 
-    fun getActivitiesByUserId(ctx: Context) {
+    fun getworkoutsByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
-            val activities = activityDAO.findByUserId(ctx.pathParam("user-id").toInt())
-            if (activities.isNotEmpty()) {
+            val workouts = workoutDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (workouts.isNotEmpty()) {
                 //mapper handles the deserialization of Joda date into a String.
                 val mapper = jacksonObjectMapper()
                     .registerModule(JodaModule())
                     .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-                ctx.json(mapper.writeValueAsString(activities))
+                ctx.json(mapper.writeValueAsString(workouts))
             }
         }
     }
 
-    fun addActivity(ctx: Context) {
+    fun addworkout(ctx: Context) {
         //mapper handles the serialisation of Joda date into a String.
         val mapper = jacksonObjectMapper()
             .registerModule(JodaModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        val activity = mapper.readValue<Activity>(ctx.body())
-        activityDAO.save(activity)
-        ctx.json(activity)
+        val workout = mapper.readValue<Workout>(ctx.body())
+        workoutDAO.save(workout)
+        ctx.json(workout)
     }
 
+    fun deleteWorkoutById(ctx: Context) {
 
-    fun deleteActivityById(ctx: Context) {
-
-        activityDAO.delete(ctx.pathParam("id").toInt())
+        workoutDAO.delete(ctx.pathParam("id").toInt())
     }
-
-    fun updateActivity(ctx: Context) {
-
-        val mapper = jacksonObjectMapper().registerModule(JodaModule())
-            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        val activityUpdates = mapper.readValue<Activity>(ctx.body())
-        activityDAO.updateActivity(id = ctx.pathParam("id").toInt(), activity=activityUpdates)
-
-    }
-
 
 }
+

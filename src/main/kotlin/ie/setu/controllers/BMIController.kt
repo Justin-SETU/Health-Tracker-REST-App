@@ -13,7 +13,8 @@ import ie.setu.domain.Bmi
 import ie.setu.domain.repository.BmiDAO
 
 //main endpoints and http requests for handling API requests, handles different things
-object BmiController {
+object BMIController {
+
     private val userDao = UserDAO()
     private val bmiDAO = BmiDAO()
 

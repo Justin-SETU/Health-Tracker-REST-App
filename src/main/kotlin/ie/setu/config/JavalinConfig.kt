@@ -49,10 +49,10 @@ class JavalinConfig {
         //--------------------------------
 
         //Bmi Features
-        app.get("/api/bmi", BmiController ::getAllBmis)
-        app.post("/api/bmi/add", BmiController::addBmi)
-        app.get("/api/bmi/{user-id}", BmiController:: getBmisByUserId)
-        app.delete("/api/bmi/{user-id}", BmiController::deleteBmiById)
+        app.get("/api/bmi", BMIController ::getAllBmis)
+        app.post("/api/bmi/add", BMIController::addBmi)
+        app.get("/api/bmi/{user-id}", BMIController:: getBmisByUserId)
+        app.delete("/api/bmi/{user-id}", BMIController::deleteBmiById)
         //----------------------------------
 
         //Workout Features

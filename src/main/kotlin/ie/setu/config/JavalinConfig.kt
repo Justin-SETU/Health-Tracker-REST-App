@@ -1,9 +1,6 @@
 package ie.setu.config
 
-import ie.setu.controllers.ActivityController
-import ie.setu.controllers.BMIController
-import ie.setu.controllers.UserController
-import ie.setu.controllers.WorkoutController
+import ie.setu.controllers.*
 import io.javalin.Javalin
 import io.javalin.json.JavalinJackson
 import ie.setu.utils.jsonObjectMapper
@@ -52,10 +49,10 @@ class JavalinConfig {
         //--------------------------------
 
         //Bmi Features
-        app.get("/api/bmi", BMIController:: getBmi)
-        app.post("/api/bmi/add-bmi", BMIController::saveBmi)
-        app.delete("/api/bmi/delete", BMIController::deleteBmi)
-        app.patch("/api/bmi/update/{id}", BMIController::updateBmi)
+        app.get("/api/bmi", BmiController ::getAllBmis)
+        app.post("/api/bmi/add", BmiController::addBmi)
+        app.get("/api/bmi/{user-id}", BmiController:: getBmisByUserId)
+        app.delete("/api/bmi/{user-id}", BmiController::deleteBmiById)
         //----------------------------------
 
         //Workout Features
@@ -63,6 +60,11 @@ class JavalinConfig {
         app.post("/api/workouts/add", WorkoutController::addworkout)
         app.get("/api/users/{user-id}/workouts", WorkoutController::getworkoutsByUserId)
         app.delete("/api/workouts/{user-id}", WorkoutController::deleteWorkoutById)
+        //----------------------------------
+
+        //Recommendation Feature
+//        app.post("/api/recommend/{user-id}", RecommendController::getRecommendation)
+
     }
     
     private fun getRemoteAssignedPort(): Int {

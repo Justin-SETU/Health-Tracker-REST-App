@@ -15,10 +15,6 @@ object WorkoutController {
     private val workoutDAO = WorkoutDAO()
     private val userDao = UserDAO()
 
-    //--------------------------------------------------------------
-    // workoutDAO specifics
-    //-------------------------------------------------------------
-
     fun getAllworkouts(ctx: Context) {
         //mapper handles the deserialization of Joda date into a String.
         val mapper = jacksonObjectMapper()

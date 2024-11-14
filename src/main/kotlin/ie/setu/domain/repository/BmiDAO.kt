@@ -3,62 +3,58 @@ package ie.setu.domain.repository
 import ie.setu.domain.Bmi
 import ie.setu.domain.db.Bmis
 import ie.setu.utils.mapToBmi
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.update
-
 
 class BmiDAO {
 
-    fun getBmilist(): ArrayList<Bmi> {
-        val bmilist : ArrayList<Bmi> = arrayListOf()
+    //Get all the bmis in the database regardless of user id
+    fun getAll(): ArrayList<Bmi> {
+        val bmisList: ArrayList<Bmi> = arrayListOf()
         transaction {
-            Bmis.selectAll().map{bmilist.add(mapToBmi(it))}
+            Bmis.selectAll().map {
+                bmisList.add(mapToBmi(it)) }
         }
-        return bmilist
+        return bmisList
     }
 
-    fun saveBmi(bmi: Bmi) {
+    //Find a specific bmi by bmi id
+    fun findByBmiId(id: Int): Bmi?{
+        return transaction {
+            Bmis
+                .selectAll().where { Bmis.id eq id}
+                .map{mapToBmi(it)}
+                .firstOrNull()
+        }
+    }
+
+    //Find all bmis for a specific user id
+    fun findByUserId(userId: Int): List<Bmi>{
+        return transaction {
+            Bmis
+                .selectAll().where {Bmis.userId eq userId}
+                .map {mapToBmi(it)}
+        }
+    }
+
+    //Save an bmi to the database
+    fun save(bmi: Bmi){
         transaction {
             Bmis.insert {
-                it[id] = bmi.id
-                it[weight] = bmi.weight
                 it[height] = bmi.height
-                it[bmicalc] = bmi.bmicalc
-//                it[starttime] = bmi.starttime
+                it[weight] = bmi.weight
+                it[bmivalue] = bmi.bmivalue
+                it[started] = bmi.started
                 it[userId] = bmi.userId
             }
         }
     }
 
-    fun updateBmi(id:Int, bmi: Bmi) {
-        transaction {
-            Bmis.update({ Bmis.id eq id }) {
-                it[Bmis.id] = bmi.id
-                it[weight] = bmi.weight
-                it[height] = bmi.height
-                it[bmicalc] = bmi.bmicalc
-//                it[starttime] = bmi.starttime
-                it[userId] = bmi.userId
-            }
-        }
-    }
-
-    fun deleteBmi(id: Int) {
+    fun delete(id: Int){
         return transaction {
-            Bmis.deleteWhere { Bmis.id eq id }
-        }
-    }
-
-    fun findBmibyId(id: Int): Bmi? {
-        return transaction {
-            Bmis.selectAll().where { Bmis.id eq id }.map { mapToBmi(it) }.firstOrNull()
+            Bmis.deleteWhere { Bmis.id eq id}
         }
     }
 
 }
-
-

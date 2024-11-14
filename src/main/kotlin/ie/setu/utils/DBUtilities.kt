@@ -1,14 +1,7 @@
 package ie.setu.utils
 
-import ie.setu.domain.Activity
-import ie.setu.domain.Bmi
-import ie.setu.domain.db.Activities
-
-import ie.setu.domain.User
-import ie.setu.domain.Workout
-import ie.setu.domain.db.Bmis
-import ie.setu.domain.db.Users
-import ie.setu.domain.db.Workouts
+import ie.setu.domain.*
+import ie.setu.domain.db.*
 
 import org.jetbrains.exposed.sql.ResultRow
 
@@ -35,11 +28,11 @@ fun mapToActivity(it: ResultRow) = Activity(
 //converts results from database into bmi
 fun mapToBmi(it: ResultRow) = Bmi(
     id = it[Bmis.id],
-    weight = it[Bmis.weight],
     height = it[Bmis.height],
-    bmicalc = it[Bmis.bmicalc],
-//    starttime = it[Bmis.starttime],
-    userId = it[Bmis.userId],
+    weight = it[Bmis.weight],
+    bmivalue = it[Bmis.bmivalue],
+    started = it[Bmis.started],
+    userId = it[Bmis.userId]
 )
 
 fun mapToWorkout(it: ResultRow) = Workout(
@@ -48,4 +41,11 @@ fun mapToWorkout(it: ResultRow) = Workout(
     duration = it[Workouts.duration],
     started = it[Workouts.started],
     userId = it[Workouts.userId]
+)
+
+fun mapToRecommend(it: ResultRow) = Recommend(
+    id = it[Recommends.id],
+    workout = it[Recommends.workout],
+    recommend = it[Recommends.recommend],
+    userId = it[Recommends.userId]
 )

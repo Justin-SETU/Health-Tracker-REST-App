@@ -3,6 +3,7 @@ package ie.setu.config
 import ie.setu.controllers.ActivityController
 import ie.setu.controllers.BMIController
 import ie.setu.controllers.UserController
+import ie.setu.controllers.WorkoutController
 import io.javalin.Javalin
 import io.javalin.json.JavalinJackson
 import ie.setu.utils.jsonObjectMapper
@@ -55,8 +56,15 @@ class JavalinConfig {
         app.post("/api/bmi/add-bmi", BMIController::saveBmi)
         app.delete("/api/bmi/delete", BMIController::deleteBmi)
         app.patch("/api/bmi/update/{id}", BMIController::updateBmi)
-    }
+        //----------------------------------
 
+        //Workout Features
+        app.get("/api/workouts", WorkoutController::getAllworkouts)
+        app.post("/api/workouts/add", WorkoutController::addworkout)
+        app.get("/api/users/{user-id}/workouts", WorkoutController::getworkoutsByUserId)
+        app.delete("/api/workouts/{user-id}", WorkoutController::deleteWorkoutById)
+    }
+    
     private fun getRemoteAssignedPort(): Int {
         val remotePort = System.getenv("PORT")
         return if (remotePort != null) {

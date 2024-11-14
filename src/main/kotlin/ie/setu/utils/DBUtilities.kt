@@ -5,8 +5,10 @@ import ie.setu.domain.Bmi
 import ie.setu.domain.db.Activities
 
 import ie.setu.domain.User
+import ie.setu.domain.Workout
 import ie.setu.domain.db.Bmis
 import ie.setu.domain.db.Users
+import ie.setu.domain.db.Workouts
 
 import org.jetbrains.exposed.sql.ResultRow
 
@@ -38,4 +40,12 @@ fun mapToBmi(it: ResultRow) = Bmi(
     bmicalc = it[Bmis.bmicalc],
 //    starttime = it[Bmis.starttime],
     userId = it[Bmis.userId],
+)
+
+fun mapToWorkout(it: ResultRow) = Workout(
+    id = it[Workouts.id],
+    workout = it[Workouts.workout],
+    duration = it[Workouts.duration],
+    started = it[Workouts.started],
+    userId = it[Workouts.userId]
 )

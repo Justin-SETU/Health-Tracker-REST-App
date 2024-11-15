@@ -2,8 +2,10 @@ package ie.setu.utils
 
 import ie.setu.domain.*
 import ie.setu.domain.db.*
-
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import org.jetbrains.exposed.sql.ResultRow
+
 
 //designed to map a database row with a data object
 //When query database, results are returned as ResultRow
@@ -41,11 +43,4 @@ fun mapToWorkout(it: ResultRow) = Workout(
     duration = it[Workouts.duration],
     started = it[Workouts.started],
     userId = it[Workouts.userId]
-)
-
-fun mapToRecommend(it: ResultRow) = Recommend(
-    id = it[Recommends.id],
-    workout = it[Recommends.workout],
-    recommend = it[Recommends.recommend],
-    userId = it[Recommends.userId]
 )

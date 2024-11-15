@@ -64,7 +64,6 @@ class JavalinConfig {
         //----------------------------------
 
         //Recommendation Feature
-        app.post("/api/recommend/{user-id}", RecommendController::getRecommendation)
 
     }
     

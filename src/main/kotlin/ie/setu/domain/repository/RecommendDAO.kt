@@ -2,6 +2,10 @@ package ie.setu.domain.repository
 
 import ie.setu.domain.Recommend
 import ie.setu.domain.Workout
+import ie.setu.domain.db.Recommends
+import ie.setu.utils.mapToRecommend
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 
 class RecommendDAO {
     fun getRecommend(workout: String, userId: Int): List<String> {
@@ -12,4 +16,12 @@ class RecommendDAO {
             else -> listOf("General Fitness", "Stretching", "Light Cardio")
         }
     }
+
+//    fun getAll(): ArrayList<Recommends> {
+//        val recommendsList: ArrayList<Recommends> = arrayListOf()
+//        transaction {
+//            Recommends.selectAll().map { recommendsList.add(mapToRecommend(it)) }
+//        }
+//        return recommendsList
+//    }
 }

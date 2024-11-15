@@ -34,13 +34,13 @@ class UserDAO {
     }
 
     //Register new user
-    fun save(user: User) {
-        transaction {
+    fun save(user: User): Int? {
+        return transaction {
             Users.insert {
                 it[name] = user.name
                 it[email] = user.email
                 it[password] = user.password
-            }
+            } get Users.id
         }
     }
 
@@ -52,11 +52,10 @@ class UserDAO {
     }
 
     //Update the users name, email, password
-    fun update(id: Int, user: User) {
-        transaction {
-            Users.update({
-                Users.id eq id
-            }) {
+    fun update(id: Int, user: User): Int {
+        return transaction {
+            Users.update({ Users.id eq id })
+            {
                 it[name] = user.name
                 it[email] = user.email
                 it[password] = user.password

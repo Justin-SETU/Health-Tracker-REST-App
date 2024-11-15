@@ -38,7 +38,9 @@ object UserController {
         val user = mapper.readValue<User>(ctx.body())
         userDao.save(user)
         ctx.json(user)
+        ctx.status(201)
     }
+
 
     //Show user details
     fun getAllUsers(ctx: Context) {
@@ -65,8 +67,11 @@ object UserController {
     fun updateUser(ctx: Context){
         val mapper = jacksonObjectMapper()
         val userUpdates : User = mapper.readValue<User>(ctx.body())
-        userDao.update(id = ctx.pathParam("user-id").toInt(), user=userUpdates)
-        ctx.status(204)
+        if ((userDao.update(id = ctx.pathParam("user-id").toInt(), user = userUpdates)) != 0) {
+            ctx.status(204)
+        } else {
+            ctx.status(404)
+        }
     }
 
 

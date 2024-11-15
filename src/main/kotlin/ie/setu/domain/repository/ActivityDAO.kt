@@ -46,16 +46,16 @@ class ActivityDAO {
         }
     }
 
-    //delete an activity from database
-    fun delete(id: Int){
+    //delete by user id of an activity from database
+    fun delete(id: Int): Int {
         return transaction {
             Activities.deleteWhere { Activities.id eq id}
         }
     }
 
-    //update and activity in the database
-    fun updateActivity(id: Int, activity: Activity){
-        transaction {
+    //update and activity in the database with activity id
+    fun updateActivity(id: Int, activity: Activity): Int{
+        return transaction {
             Activities.update({ Activities.id eq id }) {
                 it[description] = activity.description
                 it[duration] = activity.duration

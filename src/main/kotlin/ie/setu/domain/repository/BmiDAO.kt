@@ -7,34 +7,29 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
+//bmi data access objects that handles database operations
 class BmiDAO {
 
-    //Get all the bmis in the database regardless of user id
+    //Get all the Bmi in the database regardless of user id
     fun getAll(): ArrayList<Bmi> {
-        val bmisList: ArrayList<Bmi> = arrayListOf()
+        val BmisList: ArrayList<Bmi> = arrayListOf()
         transaction {
-            Bmis.selectAll().map {
-                bmisList.add(mapToBmi(it)) }
+            Bmis.selectAll().map { BmisList.add(mapToBmi(it)) }
         }
-        return bmisList
+        return BmisList
     }
 
     //Find a specific bmi by bmi id
     fun findByBmiId(id: Int): Bmi?{
         return transaction {
-            Bmis
-                .selectAll().where { Bmis.id eq id}
-                .map{mapToBmi(it)}
-                .firstOrNull()
+            Bmis.selectAll().where { Bmis.id eq id}.map{mapToBmi(it)}.firstOrNull()
         }
     }
 
-    //Find all bmis for a specific user id
+    //Find all Bmi for a specific user id
     fun findByUserId(userId: Int): List<Bmi>{
         return transaction {
-            Bmis
-                .selectAll().where {Bmis.userId eq userId}
-                .map {mapToBmi(it)}
+            Bmis.selectAll().where {Bmis.userId eq userId}.map {mapToBmi(it)}
         }
     }
 
@@ -51,9 +46,23 @@ class BmiDAO {
         }
     }
 
-    fun delete(id: Int){
+    //delete by user id of an bmi from database
+    fun delete(id: Int): Int {
         return transaction {
             Bmis.deleteWhere { Bmis.id eq id}
+        }
+    }
+
+    //update and bmis in the database with bmi id
+    fun updateBmi(id: Int, bmi: Bmi): Int{
+        return transaction {
+            Bmis.update({ Bmis.id eq id }) {
+                it[height] = bmi.height
+                it[weight] = bmi.weight
+                it[bmivalue] = bmi.bmivalue
+                it[started] = bmi.started
+                it[userId] = bmi.userId
+            }
         }
     }
 

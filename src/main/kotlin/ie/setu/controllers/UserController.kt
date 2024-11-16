@@ -9,6 +9,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 
 import ie.setu.domain.User
 import ie.setu.domain.UserLogin
+import ie.setu.utils.jsonToObject
 
 
 //main endpoints and http requests for handling API requests, handles different things
@@ -34,11 +35,13 @@ object UserController {
 
     //Register User
     fun addUser(ctx: Context) {
-        val mapper = jacksonObjectMapper()
-        val user = mapper.readValue<User>(ctx.body())
-        userDao.save(user)
-        ctx.json(user)
-        ctx.status(201)
+        val user : User = jsonToObject(ctx.body())
+        val userId = userDao.save(user)
+        if (userId != null) {
+            user.id = userId
+            ctx.json(user)
+            ctx.status(201)
+        }
     }
 
 
@@ -47,12 +50,11 @@ object UserController {
         val users = userDao.getAll()
         if (users.size != 0) {
             ctx.status(200)
-            ctx.json(users)
         }
         else{
             ctx.status(404)
         }
-
+        ctx.json(users)
     }
 
     //Api request to delete a used
@@ -65,13 +67,11 @@ object UserController {
 
     //Api request to update a user
     fun updateUser(ctx: Context){
-        val mapper = jacksonObjectMapper()
-        val userUpdates : User = mapper.readValue<User>(ctx.body())
-        if ((userDao.update(id = ctx.pathParam("user-id").toInt(), user = userUpdates)) != 0) {
+        val foundUser : User = jsonToObject(ctx.body())
+        if ((userDao.update(id = ctx.pathParam("user-id").toInt(), user=foundUser)) != 0)
             ctx.status(204)
-        } else {
+        else
             ctx.status(404)
-        }
     }
 
 
@@ -91,6 +91,10 @@ object UserController {
         val user = userDao.findByEmail(ctx.pathParam("email"))
         if (user != null) {
             ctx.json(user)
+            ctx.status(200)
+        }
+        else{
+            ctx.status(404)
         }
     }
     //------------------------------------------------------

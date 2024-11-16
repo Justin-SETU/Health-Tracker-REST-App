@@ -159,19 +159,40 @@ class ActivityDAOTest {
 
     @Nested
     inner class UpdateActivitys {
+
         @Test
-        fun ` updating existing activitys in table results in successful updating of table`() {
+        fun `update activity of a user results in the record in the table being updated`() {
             transaction {
-
-                //Arrange - create the table with 3 activitys
-                populateUserTable()
+                // Arrange - create and populate tables with three users and three activities
+                val userDAO = populateUserTable()
                 val activityDAO = populateActivityTable()
-
-                //Act and Assert
-                val activity3Updated = Activity(description = "Walking", duration = 30.0, calories = 101, started = DateTime.now(), userId = 1, id = 1)
-                activityDAO.updateActivity(activity3.id, activity3Updated)
-                assertEquals(activity3Updated, activityDAO.findByActivityId(3))
+                val activity1updated = Activity(description = "Walking and singing", duration = 40.0, calories = 101, started = DateTime.now(), userId = 1, id = 1)
+                activityDAO.updateActivity(activity1updated.id, activity1updated)
+                assertEquals(activity1updated, activityDAO.findByActivityId(1))
             }
         }
+
+        @Test
+        fun `updating non-existant activity in table results in no updates`() {
+            transaction {
+                // Arrange - create and populate tables with three users and three activities
+                val userDAO = populateUserTable()
+                val activityDAO = populateActivityTable()
+
+                // Act & Assert
+                val activity4updated = Activity(
+                    id = 4,
+                    description = "Cardio",
+                    duration = 42.0,
+                    calories = 220,
+                    started = DateTime.now(),
+                    userId = 2,
+                )
+                activityDAO.updateActivity(4, activity4updated)
+                assertEquals(null, activityDAO.findByActivityId(4))
+                assertEquals(3, activityDAO.getAll().size)
+            }
+        }
+
     }
 }

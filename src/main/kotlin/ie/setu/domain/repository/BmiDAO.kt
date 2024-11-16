@@ -33,18 +33,22 @@ class BmiDAO {
         }
     }
 
+
+
     //Save an bmi to the database
     fun save(bmi: Bmi){
         transaction {
             Bmis.insert {
                 it[height] = bmi.height
                 it[weight] = bmi.weight
-                it[bmivalue] = bmi.bmivalue
+                it[bmivalue] = (bmi.weight/(bmi.height*bmi.height))
                 it[started] = bmi.started
                 it[userId] = bmi.userId
             }
         }
     }
+
+
 
     //delete by user id of an bmi from database
     fun delete(id: Int): Int {
@@ -59,7 +63,7 @@ class BmiDAO {
             Bmis.update({ Bmis.id eq id }) {
                 it[height] = bmi.height
                 it[weight] = bmi.weight
-                it[bmivalue] = bmi.bmivalue
+                it[bmivalue] = (bmi.weight/(bmi.height*bmi.height))
                 it[started] = bmi.started
                 it[userId] = bmi.userId
             }

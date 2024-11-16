@@ -2,9 +2,10 @@ package ie.setu.utils
 
 import ie.setu.domain.*
 import ie.setu.domain.db.*
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+import ie.setu.domain.db.Logs.summary
 import org.jetbrains.exposed.sql.ResultRow
+import ie.setu.domain.Log
+import ie.setu.domain.db.Logs
 
 
 //designed to map a database row with a data object
@@ -43,4 +44,12 @@ fun mapToWorkout(it: ResultRow) = Workout(
     duration = it[Workouts.duration],
     started = it[Workouts.started],
     userId = it[Workouts.userId]
+)
+
+fun mapToLog(it: ResultRow) = Log(
+    id = it[Logs.id],
+    started = it[Logs.started],
+    summary = it[Logs.summary],
+    status_type = it[Logs.status_type],
+    userId = it[Logs.userId]
 )

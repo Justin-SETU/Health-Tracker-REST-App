@@ -63,7 +63,12 @@ class JavalinConfig {
         app.delete("/api/workouts/{user-id}", WorkoutController::deleteWorkoutById)
         //----------------------------------
 
-        //Recommendation Feature
+        //Status Feature
+        app.get("/api/log", LogController ::getAllLogs)
+        app.post("/api/log/add", LogController::addLog)
+        app.get("/api/log/{user-id}", LogController:: getLogsByUserId)
+        app.delete("/api/log/{id}", LogController::deleteLogById)
+        app.patch("/api/log/update/{id}", LogController::updateLog)
 
     }
     

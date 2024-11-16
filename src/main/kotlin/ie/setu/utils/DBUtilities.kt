@@ -1,16 +1,12 @@
 package ie.setu.utils
 
-import ie.setu.domain.Activity
-import ie.setu.domain.Bmi
-import ie.setu.domain.db.Activities
-
-import ie.setu.domain.User
-import ie.setu.domain.Workout
-import ie.setu.domain.db.Bmis
-import ie.setu.domain.db.Users
-import ie.setu.domain.db.Workouts
-
+import ie.setu.domain.*
+import ie.setu.domain.db.*
+import ie.setu.domain.db.Logs.summary
 import org.jetbrains.exposed.sql.ResultRow
+import ie.setu.domain.Log
+import ie.setu.domain.db.Logs
+
 
 //designed to map a database row with a data object
 //When query database, results are returned as ResultRow
@@ -35,11 +31,11 @@ fun mapToActivity(it: ResultRow) = Activity(
 //converts results from database into bmi
 fun mapToBmi(it: ResultRow) = Bmi(
     id = it[Bmis.id],
-    weight = it[Bmis.weight],
     height = it[Bmis.height],
-    bmicalc = it[Bmis.bmicalc],
-//    starttime = it[Bmis.starttime],
-    userId = it[Bmis.userId],
+    weight = it[Bmis.weight],
+    bmivalue = it[Bmis.bmivalue],
+    started = it[Bmis.started],
+    userId = it[Bmis.userId]
 )
 
 fun mapToWorkout(it: ResultRow) = Workout(
@@ -48,4 +44,12 @@ fun mapToWorkout(it: ResultRow) = Workout(
     duration = it[Workouts.duration],
     started = it[Workouts.started],
     userId = it[Workouts.userId]
+)
+
+fun mapToLog(it: ResultRow) = Log(
+    id = it[Logs.id],
+    started = it[Logs.started],
+    summary = it[Logs.summary],
+    status_type = it[Logs.status_type],
+    userId = it[Logs.userId]
 )

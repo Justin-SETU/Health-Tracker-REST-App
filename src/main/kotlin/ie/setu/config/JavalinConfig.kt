@@ -1,9 +1,6 @@
 package ie.setu.config
 
-import ie.setu.controllers.ActivityController
-import ie.setu.controllers.BMIController
-import ie.setu.controllers.UserController
-import ie.setu.controllers.WorkoutController
+import ie.setu.controllers.*
 import io.javalin.Javalin
 import io.javalin.json.JavalinJackson
 import ie.setu.utils.jsonObjectMapper
@@ -47,22 +44,32 @@ class JavalinConfig {
         app.get("/api/activities", ActivityController ::getAllActivities)
         app.post("/api/activities/add", ActivityController::addActivity)
         app.get("/api/activities/{user-id}", ActivityController:: getActivitiesByUserId)
-        app.delete("/api/activities/{user-id}", ActivityController::deleteActivityById)
-        app.patch("/api/activities/{id}", ActivityController::updateActivity)
+        app.delete("/api/activities/{id}", ActivityController::deleteActivityById)
+        app.patch("/api/activities/update/{id}", ActivityController::updateActivity)
         //--------------------------------
 
         //Bmi Features
-        app.get("/api/bmi", BMIController:: getBmi)
-        app.post("/api/bmi/add-bmi", BMIController::saveBmi)
-        app.delete("/api/bmi/delete", BMIController::deleteBmi)
+        app.get("/api/bmi", BMIController ::getAllBmis)
+        app.post("/api/bmi/add", BMIController::addBmi)
+        app.get("/api/bmi/{user-id}", BMIController:: getBmisByUserId)
+        app.delete("/api/bmi/{id}", BMIController::deleteBmiById)
         app.patch("/api/bmi/update/{id}", BMIController::updateBmi)
         //----------------------------------
 
         //Workout Features
-        app.get("/api/workouts", WorkoutController::getAllworkouts)
-        app.post("/api/workouts/add", WorkoutController::addworkout)
-        app.get("/api/users/{user-id}/workouts", WorkoutController::getworkoutsByUserId)
+        app.get("/api/workouts", WorkoutController::getAllWorkouts)
+        app.post("/api/workouts/add", WorkoutController::addWorkout)
+        app.get("/api/users/{user-id}/workouts", WorkoutController::getWorkoutsByUserId)
         app.delete("/api/workouts/{user-id}", WorkoutController::deleteWorkoutById)
+        //----------------------------------
+
+        //Status Feature
+        app.get("/api/log", LogController ::getAllLogs)
+        app.post("/api/log/add", LogController::addLog)
+        app.get("/api/log/{user-id}", LogController:: getLogsByUserId)
+        app.delete("/api/log/{id}", LogController::deleteLogById)
+        app.patch("/api/log/update/{id}", LogController::updateLog)
+
     }
     
     private fun getRemoteAssignedPort(): Int {

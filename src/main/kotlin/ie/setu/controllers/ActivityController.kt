@@ -26,7 +26,13 @@ object ActivityController {
         val mapper = jacksonObjectMapper()
             .registerModule(JodaModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        ctx.json(mapper.writeValueAsString( activityDAO.getAll() ))
+        val activities = activityDAO.getAll()
+        if (activities.size != 0) {
+            ctx.json(mapper.writeValueAsString( activities ))
+            ctx.status(200)
+        } else {
+            ctx.status(404)
+        }
     }
 
     fun getActivitiesByUserId(ctx: Context) {
@@ -38,6 +44,10 @@ object ActivityController {
                     .registerModule(JodaModule())
                     .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 ctx.json(mapper.writeValueAsString(activities))
+                ctx.status(200)
+            }
+            else {
+                ctx.status(404)
             }
         }
     }
@@ -48,23 +58,37 @@ object ActivityController {
             .registerModule(JodaModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
         val activity = mapper.readValue<Activity>(ctx.body())
-        activityDAO.save(activity)
-        ctx.json(activity)
+        val userId = userDao.findById(activity.userId)
+        if (userId != null) {
+            activityDAO.save(activity)
+            ctx.json(activity)
+            ctx.status(201)
+        }
+        else {
+            ctx.status(404)
+        }
     }
 
 
     fun deleteActivityById(ctx: Context) {
-
-        activityDAO.delete(ctx.pathParam("id").toInt())
+        if((activityDAO.delete(ctx.pathParam("id").toInt()))!=0){
+            ctx.status(204)
+        } else {
+            ctx.status(404)
+        }
     }
 
+    //update the activity as per activity id
     fun updateActivity(ctx: Context) {
 
         val mapper = jacksonObjectMapper().registerModule(JodaModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
         val activityUpdates = mapper.readValue<Activity>(ctx.body())
-        activityDAO.updateActivity(id = ctx.pathParam("id").toInt(), activity=activityUpdates)
-
+        if((activityDAO.updateActivity(id = ctx.pathParam("id").toInt(), activity=activityUpdates))!=0){
+            ctx.status(204)
+        }else {
+            ctx.status(404)
+        }
     }
 
 

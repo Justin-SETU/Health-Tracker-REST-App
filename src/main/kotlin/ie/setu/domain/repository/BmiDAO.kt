@@ -37,15 +37,21 @@ class BmiDAO {
 
     //Save an bmi to the database
     fun save(bmi: Bmi){
+        val BMIcalculated = calculateBmi(bmi.height, bmi.weight)
         transaction {
             Bmis.insert {
                 it[height] = bmi.height
                 it[weight] = bmi.weight
-                it[bmivalue] = (bmi.weight/(bmi.height*bmi.height))
+                it[bmivalue] = BMIcalculated
                 it[started] = bmi.started
                 it[userId] = bmi.userId
             }
         }
+    }
+
+    //function to calculate bmi and can be used in create and update BMI
+    private fun calculateBmi( height: Double, weight: Double): Double{
+        return (weight/(height*height))
     }
 
 
@@ -59,11 +65,12 @@ class BmiDAO {
 
     //update and bmis in the database with bmi id
     fun updateBmi(id: Int, bmi: Bmi): Int{
+        val BMIcalculated = calculateBmi(bmi.height, bmi.weight)
         return transaction {
             Bmis.update({ Bmis.id eq id }) {
                 it[height] = bmi.height
                 it[weight] = bmi.weight
-                it[bmivalue] = (bmi.weight/(bmi.height*bmi.height))
+                it[bmivalue] = BMIcalculated
                 it[started] = bmi.started
                 it[userId] = bmi.userId
             }

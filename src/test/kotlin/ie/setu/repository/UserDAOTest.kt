@@ -4,6 +4,7 @@ import ie.setu.domain.User
 import ie.setu.domain.db.Users
 import ie.setu.domain.repository.UserDAO
 import ie.setu.helpers.nonExistingEmail
+import ie.setu.helpers.populateUserTable
 import ie.setu.helpers.users
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -30,14 +31,7 @@ class UserDAOTest {
         }
     }
 
-    internal fun populateUserTable(): UserDAO {
-        SchemaUtils.create(Users)
-        val userDAO = UserDAO()
-        userDAO.save(user1)
-        userDAO.save(user2)
-        userDAO.save(user3)
-        return userDAO
-    }
+
 
     @Nested
     inner class ReadUsers {
@@ -52,6 +46,17 @@ class UserDAOTest {
                 assertEquals(3, userDAO.getAll().size)
             }
         }
+
+//        @Test
+//        fun `get user by email and password with exits`(){
+//            transaction {
+//                val userDao=  populateUserTable()
+//
+//                assertEquals(true, userDao.loginUser(UserLogin("justin@setu.com", "pass123")))
+//            }
+//        }
+
+
         @Test
         fun `get user by id that doesn't exist, results in no user returned`() {
             transaction {
@@ -71,7 +76,7 @@ class UserDAOTest {
                 val userDAO = populateUserTable()
 
                 //Act & Assert
-                assertEquals(null, userDAO.findById(4))
+                assertEquals(user3, userDAO.findById(user3.id))
             }
         }
 

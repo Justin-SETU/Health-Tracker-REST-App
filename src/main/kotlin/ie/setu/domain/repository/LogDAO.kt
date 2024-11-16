@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 //workout data access objects that handles database operations
-class LogsDAO {
+class LogDAO {
 
     //Get all the logs in the database regardless of user id
     fun getAll(): ArrayList<Log> {

@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94a1eaf0-4fd2-4187-9580-9c1bca90ffa2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/controllers/ActivityControllerTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/controllers/HealthTrackerControllerTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/UserController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/controllers/UserController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ie/setu/controllers/UserControllerTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ie/setu/helpers/Fixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/helpers/Fixtures.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,8 +76,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.ActivityControllerTest.executor": "Run",
     "JUnit.ActivityDAOTest.executor": "Coverage",
     "JUnit.BmiDAOTest.executor": "Run",
+    "JUnit.HealthTrackerControllerTest.executor": "Coverage",
     "JUnit.LogDAOTest.executor": "Run",
     "JUnit.UserControllerTest.executor": "Run",
     "JUnit.UserDAOTest.executor": "Run",
@@ -81,7 +90,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "Testing",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/itsju/Downloads/healthtracker-41",
+    "last_opened_file_path": "C:/Users/itsju/Downloads/kotlin-client-client-generated (1)",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,7 +100,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.LogDAOTest">
+  <component name="RunManager">
     <configuration name="ActivityDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Health-tracker-rest" />
       <extension name="coverage">
@@ -126,6 +135,26 @@
       </extension>
       <option name="PACKAGE_NAME" value="ie.setu.repository" />
       <option name="MAIN_CLASS_NAME" value="ie.setu.repository.BmiDAOTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HealthTrackerControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Health-tracker-rest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ie.setu.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="ie.setu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ie.setu.controllers" />
+      <option name="MAIN_CLASS_NAME" value="ie.setu.controllers.HealthTrackerControllerTest" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
@@ -172,27 +201,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AppKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ie.setu.AppKt" />
-      <module name="Health-tracker-rest" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="JUnit.HealthTrackerControllerTest" />
       <item itemvalue="JUnit.LogDAOTest" />
       <item itemvalue="JUnit.ActivityDAOTest" />
       <item itemvalue="JUnit.BmiDAOTest" />
       <item itemvalue="JUnit.UserDAOTest" />
-      <item itemvalue="Kotlin.AppKt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HealthTrackerControllerTest" />
         <item itemvalue="JUnit.LogDAOTest" />
         <item itemvalue="JUnit.BmiDAOTest" />
         <item itemvalue="JUnit.ActivityDAOTest" />
         <item itemvalue="JUnit.UserDAOTest" />
-        <item itemvalue="Kotlin.AppKt" />
       </list>
     </recent_temporary>
   </component>
@@ -234,6 +256,8 @@
       <workItem from="1731562922844" duration="1175000" />
       <workItem from="1731572170298" duration="45035000" />
       <workItem from="1731747939921" duration="10190000" />
+      <workItem from="1731790844505" duration="5705000" />
+      <workItem from="1731797330408" duration="8312000" />
     </task>
     <servers />
   </component>
@@ -272,6 +296,10 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/Health_tracker_rest$ActivityDAOTest.ic" NAME="ActivityDAOTest Coverage Results" MODIFIED="1731779917549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
+      <FILTER>ie.setu.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$HealthTrackerControllerTest.ic" NAME="HealthTrackerControllerTest Coverage Results" MODIFIED="1731827006612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>ie.setu.controllers.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Health_tracker_rest$LogDAOTest.ic" NAME="LogDAOTest Coverage Results" MODIFIED="1731783486535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

@@ -1,0 +1,674 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Health Tracker API
+  description: This API provides endpoints for handling CRUD operations on the Health Tracker data.
+  contact:
+    name: Justin Jose
+    email: 20110497@mailwit.ie
+
+paths:
+  /api/users/login-user:
+    post:
+      summary: User Login
+      description: Authenticate a user with email and password.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@example.com"
+                password:
+                  type: string
+                  example: "password123"
+      responses:
+        '200':
+          description: Login successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login successful."
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '401':
+          description: Invalid credentials.
+
+  /api/users:
+    get:
+      summary: Get All Users
+      description: Retrieve a list of all registered users.
+      responses:
+        '200':
+          description: Successfully retrieved users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /api/users/create-user:
+    post:
+      summary: Create a User
+      description: Add a new user to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully.
+
+  /api/users/delete/{user-id}:
+    delete:
+      summary: Delete a User
+      description: Remove a user from the database by their ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User deleted successfully.
+        '404':
+          description: User not found.
+
+  /api/users/update/{user-id}:
+    patch:
+      summary: Update a User
+      description: Update user details by their ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Updated User Name"
+                email:
+                  type: string
+                  example: "updated@example.com"
+                password:
+                  type: string
+                  example: "newpassword123"
+      responses:
+        '200':
+          description: User updated successfully.
+        '404':
+          description: User not found.
+
+  /api/users/id/{user-id}:
+    get:
+      summary: Get User by ID
+      description: Retrieve user details by their ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found.
+
+  /api/users/email/{email}:
+    get:
+      summary: Get User by Email
+      description: Retrieve user details by their email.
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found.
+
+  /api/activities:
+    get:
+      summary: Get All Activities
+      description: Retrieve a list of all activities.
+      responses:
+        '200':
+          description: Successfully retrieved list of activities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+
+  /api/activities/add:
+    post:
+      summary: Add a New Activity
+      description: Add a new activity to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        '201':
+          description: Activity added successfully.
+
+  /api/activities/{user-id}:
+    get:
+      summary: Get Activities by User ID
+      description: Retrieve activities for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved user activities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+        '404':
+          description: User not found.
+
+  /api/activities/{id}:
+    delete:
+      summary: Delete Activity by ID
+      description: Delete an activity by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Activity deleted successfully.
+        '404':
+          description: Activity not found.
+
+  /api/activities/update/{id}:
+    patch:
+      summary: Update Activity by ID
+      description: Update an activity's details by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: "Running"
+                duration:
+                  type: number
+                  format: double
+                  example: 45.0
+                calories:
+                  type: integer
+                  example: 300
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: Activity updated successfully.
+        '404':
+          description: Activity not found.
+          
+  /api/bmi:
+    get:
+      summary: Get All BMIs
+      description: Retrieve a list of all BMI records.
+      responses:
+        '200':
+          description: Successfully retrieved BMI records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bmi'
+
+  /api/bmi/add:
+    post:
+      summary: Add a New BMI Record
+      description: Add a new BMI record to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bmi'
+      responses:
+        '201':
+          description: BMI record added successfully.
+
+  /api/bmi/{user-id}:
+    get:
+      summary: Get BMIs by User ID
+      description: Retrieve BMI records for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved BMI records for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bmi'
+        '404':
+          description: User not found.
+
+  /api/bmi/{id}:
+    delete:
+      summary: Delete BMI Record by ID
+      description: Delete a BMI record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: BMI record deleted successfully.
+        '404':
+          description: BMI record not found.
+
+  /api/bmi/update/{id}:
+    patch:
+      summary: Update BMI Record by ID
+      description: Update a BMI record's details by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                height:
+                  type: number
+                  format: double
+                  example: 1.8
+                weight:
+                  type: number
+                  format: double
+                  example: 75.0
+                bmivalue:
+                  type: number
+                  format: double
+                  example: 23.1
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: BMI record updated successfully.
+        '404':
+          description: BMI record not found.
+          
+  /api/workouts:
+    get:
+      summary: Get All Workouts
+      description: Retrieve a list of all workout records.
+      responses:
+        '200':
+          description: Successfully retrieved workout records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workout'
+
+  /api/workouts/add:
+    post:
+      summary: Add a New Workout
+      description: Add a new workout record to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '201':
+          description: Workout added successfully.
+
+  /api/users/{user-id}/workouts:
+    get:
+      summary: Get Workouts by User ID
+      description: Retrieve workout records for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved workout records for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workout'
+        '404':
+          description: User not found.
+
+  /api/workouts/{user-id}:
+    delete:
+      summary: Delete Workout by User ID
+      description: Delete workout records associated with a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Workouts deleted successfully.
+        '404':
+          description: Workouts not found for the user.
+
+  /api/workouts/update/{id}:
+    patch:
+      summary: Update Workout by ID
+      description: Update details of a workout record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workout:
+                  type: string
+                  example: "Running"
+                duration:
+                  type: number
+                  format: double
+                  example: 45.0
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: Workout updated successfully.
+        '404':
+          description: Workout not found  
+  /api/log:
+    get:
+      summary: Get All Logs
+      description: Retrieve a list of all log records.
+      responses:
+        '200':
+          description: Successfully retrieved log records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+
+  /api/log/add:
+    post:
+      summary: Add a New Log
+      description: Add a new log record to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+      responses:
+        '201':
+          description: Log added successfully.
+
+  /api/log/{user-id}:
+    get:
+      summary: Get Logs by User ID
+      description: Retrieve log records for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved log records for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+        '404':
+          description: User not found.
+
+  /api/log/{id}:
+    delete:
+      summary: Delete Log by ID
+      description: Delete a specific log record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Log deleted successfully.
+        '404':
+          description: Log not found.
+
+  /api/log/update/{id}:
+    patch:
+      summary: Update Log by ID
+      description: Update details of a log record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status_type:
+                  type: string
+                  example: "Completed"
+                summary:
+                  type: string
+                  example: "Workout completed"
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: Log updated successfully.
+        '404':
+          description: Log not found.        
+          
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          example: "hashedpassword"
+          
+    Activity:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "Running"
+        duration:
+          type: number
+          format: double
+          example: 30.5
+        calories:
+          type: integer
+          example: 250
+        started:
+          type: string
+          format: date-time
+          example: "2024-11-16T10:00:00Z"
+        userId:
+          type: integer
+          example: 1
+    Bmi:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        height:
+          type: number
+          format: double
+          example: 1.75
+        weight:
+          type: number
+          format: double
+          example: 75.0
+        bmivalue:
+          type: number
+          format: double
+          example: 24.5
+        started:
+          type: string
+          format: date-time
+          example: "2024-11-16T10:00:00Z"
+        userId:
+          type: integer
+          example: 1
+    Workout:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        workout:
+          type: string
+          example: "Push-ups"
+        duration:
+          type: number
+          format: double
+          example: 20.0
+        started:
+          type: string
+          format: date-time
+          example: "2024-11-16T10:00:00Z"
+        userId:
+          type: integer
+          example: 1
+          
+    Log:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        status_type:
+          type: string
+          example: "In Progress"
+        summary:
+          type: string
+          example: "Workout started"
+        started:
+          type: string
+          format: date-time
+          example: "2024-11-16T10:00:00Z"
+        userId:
+          type: integer
+          example: 1      
+          
+          

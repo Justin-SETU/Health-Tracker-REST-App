@@ -3,10 +3,10 @@ package ie.setu.repository
 
 import ie.setu.domain.Activity
 import ie.setu.domain.db.Activities
-import ie.setu.domain.db.Users
 import ie.setu.domain.repository.ActivityDAO
-import ie.setu.domain.repository.UserDAO
 import ie.setu.helpers.activities
+import ie.setu.helpers.populateActivityTable
+import ie.setu.helpers.populateUserTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -33,23 +33,7 @@ class ActivityDAOTest {
         }
     }
 
-    internal fun populateActivityTable(): ActivityDAO {
-        SchemaUtils.create(Activities)
-        val activityDAO = ActivityDAO()
-        activityDAO.save(activity1)
-        activityDAO.save(activity2)
-        activityDAO.save(activity3)
-        return activityDAO
-    }
 
-    internal fun populateUserTable(): UserDAO {
-        SchemaUtils.create(Users)
-        val userDAO = UserDAO()
-        userDAO.save(user1)
-        userDAO.save(user2)
-        userDAO.save(user3)
-        return userDAO
-    }
 
     @Nested
     inner class ReadActivities {
@@ -67,7 +51,7 @@ class ActivityDAOTest {
         }
 
         @Test
-        fun `get activity by id that doesn't exist, results in no activity returned`() {
+        fun `get activity by id that doesn't exist, results in no activity id returned`() {
             transaction {
 
                 //Arrange - create and populate table with three activities
@@ -80,7 +64,7 @@ class ActivityDAOTest {
         }
 
         @Test
-        fun `get activity by id that exists, results in a correct activity returned`() {
+        fun `get activity by activity id that exists, results in a correct activity id returned`() {
             transaction {
 
                 //Arrange - create and populate table with three activities
@@ -88,7 +72,30 @@ class ActivityDAOTest {
                 val activityDAO = populateActivityTable()
 
                 //Act & Assert
-                assertEquals(null, activityDAO.findByActivityId(4))
+                assertEquals(activity1, activityDAO.findByActivityId(1))
+                assertEquals(activity3, activityDAO.findByActivityId(3))
+            }
+        }
+
+        @Test
+        fun `get activity by user id that has no activities, results in no record returned`() {
+            transaction {
+                //Arrange - create and populate tables with three users and three activities
+                val userDAO = populateUserTable()
+                val activityDAO = populateActivityTable()
+                //Act & Assert
+                assertEquals(0, activityDAO.findByUserId(3).size)
+            }
+        }
+
+
+        @Test
+        fun `get activities by a specific user by userid`() {
+            transaction {
+                // Arrange - create and populate tables with three users and three activities
+                val userDAO = populateUserTable()
+                val activityDAO = populateActivityTable()
+                assertEquals(3, activityDAO.findByUserId(1).size)
             }
         }
 
@@ -107,12 +114,12 @@ class ActivityDAOTest {
 
 
     @Nested
-    inner class CreateActivitys {
+    inner class CreateActivity {
         @Test
-        fun `multiple activitys added to table can be retrieved successfully`() {
+        fun `multiple activities added to table can be retrieved successfully`() {
             transaction {
 
-                //Arrange - create and populate table with three activitys
+                //Arrange - create and populate table with three activity
                 populateUserTable()
                 val activityDAO = populateActivityTable()
 
@@ -154,14 +161,15 @@ class ActivityDAOTest {
                 assertEquals(2, activityDAO.getAll().size)
             }
         }
+
     }
 
 
     @Nested
-    inner class UpdateActivitys {
+    inner class UpdateActivity {
 
         @Test
-        fun `update activity of a user results in the record in the table being updated`() {
+        fun `update activity of a user, results in the record in the table being updated`() {
             transaction {
                 // Arrange - create and populate tables with three users and three activities
                 val userDAO = populateUserTable()
@@ -180,14 +188,7 @@ class ActivityDAOTest {
                 val activityDAO = populateActivityTable()
 
                 // Act & Assert
-                val activity4updated = Activity(
-                    id = 4,
-                    description = "Cardio",
-                    duration = 42.0,
-                    calories = 220,
-                    started = DateTime.now(),
-                    userId = 2,
-                )
+                val activity4updated = Activity(id = 4, description = "Cardio", duration = 42.0, calories = 220, started = DateTime.now(), userId = 2,)
                 activityDAO.updateActivity(4, activity4updated)
                 assertEquals(null, activityDAO.findByActivityId(4))
                 assertEquals(3, activityDAO.getAll().size)

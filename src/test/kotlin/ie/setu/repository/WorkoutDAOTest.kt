@@ -2,12 +2,13 @@ package ie.setu.repository
 
 
 import ie.setu.domain.Workout
-import ie.setu.domain.db.Activities
-import ie.setu.domain.db.Users
 import ie.setu.domain.db.Workouts
+import ie.setu.domain.db.Users
 import ie.setu.domain.repository.WorkoutDAO
 import ie.setu.domain.repository.UserDAO
 import ie.setu.helpers.workouts
+import ie.setu.helpers.populateWorkoutTable
+import ie.setu.helpers.populateUserTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -34,31 +35,15 @@ class WorkoutDAOTest {
         }
     }
 
-    internal fun populateWorkoutTable(): WorkoutDAO {
-        SchemaUtils.create(Workouts)
-        val workoutDAO = WorkoutDAO()
-        workoutDAO.save(workout1)
-        workoutDAO.save(workout2)
-        workoutDAO.save(workout3)
-        return workoutDAO
-    }
 
-    internal fun populateUserTable(): UserDAO {
-        SchemaUtils.create(Users)
-        val userDAO = UserDAO()
-        userDAO.save(user1)
-        userDAO.save(user2)
-        userDAO.save(user3)
-        return userDAO
-    }
 
     @Nested
-    inner class ReadActivities {
+    inner class ReadWorkouts {
         @Test
-        fun `getting all workouts from a populated table returns all rows`() {
+        fun `getting all workout from a populated table returns all rows`() {
             transaction {
 
-                //Arrange - create and populate table with three workouts
+                //Arrange - create and populate table with three workout
                 populateUserTable()
                 val workoutDAO = populateWorkoutTable()
 
@@ -89,12 +74,34 @@ class WorkoutDAOTest {
                 val workoutDAO = populateWorkoutTable()
 
                 //Act & Assert
-                assertEquals(null, workoutDAO.findByWorkoutId(4))
+                assertEquals(workout1, workoutDAO.findByWorkoutId(1))
+                assertEquals(workout3, workoutDAO.findByWorkoutId(3))
             }
         }
 
         @Test
-        fun `get all workouts over empty table return null`() {
+        fun `get workouts by a specific user by userid`() {
+            transaction {
+                // Arrange - create and populate tables with three users and three workouts
+                val userDAO = populateUserTable()
+                val workoutDAO = populateWorkoutTable()
+                assertEquals(2, workoutDAO.findByUserId(1).size)
+            }
+        }
+
+        @Test
+        fun `get workout by user id that has no activities, results in no record returned`() {
+            transaction {
+                //Arrange - create and populate tables with three users and three workout
+                val userDAO = populateUserTable()
+                val workoutDAO = populateWorkoutTable()
+                //Act & Assert
+                assertEquals(0, workoutDAO.findByUserId(3).size)
+            }
+        }
+
+        @Test
+        fun `get all workout over empty table return null`() {
             transaction {
                 //Arrange - create and set up workoutDAO object
                 SchemaUtils.create(Workouts)
@@ -108,12 +115,12 @@ class WorkoutDAOTest {
 
 
     @Nested
-    inner class CreateWorkouts {
+    inner class CreateWorkout {
         @Test
-        fun `multiple workouts added to table can be retrieved successfully`() {
+        fun `multiple workout added to table can be retrieved successfully`() {
             transaction {
 
-                //Arrange - create and populate table with three workouts
+                //Arrange - create and populate table with three workout
                 populateUserTable()
                 val workoutDAO = populateWorkoutTable()
 
@@ -131,7 +138,7 @@ class WorkoutDAOTest {
         @Test
         fun `deleting a non-existant workout in table results in no deletion`() {
             transaction {
-                //Arrange - create and populate table with 3 workouts
+                //Arrange - create and populate table with 3 workout
                 populateUserTable()
                 val workoutDAO = populateWorkoutTable()
 
@@ -145,7 +152,7 @@ class WorkoutDAOTest {
         @Test
         fun `deleting an existing workout in table results in record being deleted`() {
             transaction {
-                //Arrange - create table with 3 workouts
+                //Arrange - create table with 3 workout
                 populateUserTable()
                 val workoutDAO = populateWorkoutTable()
 
@@ -159,7 +166,7 @@ class WorkoutDAOTest {
 
 
     @Nested
-    inner class UpdateWorkouts {
+    inner class UpdateWorkout {
         @Test
         fun ` updating existing workouts in table results in successful updating of table`() {
             transaction {
@@ -169,9 +176,24 @@ class WorkoutDAOTest {
                 val workoutDAO = populateWorkoutTable()
 
                 //Act and Assert
-                val workout3Updated = Workout(workout = "Walking", duration = 30.0, started = DateTime.now(), userId = 1, id = 1)
+                val workout3Updated = Workout(workout = "Running", duration = 50.0, started = DateTime.now(), userId = 1, id = 2)
                 workoutDAO.updateWorkout(workout3.id, workout3Updated)
                 assertEquals(workout3Updated, workoutDAO.findByWorkoutId(3))
+            }
+        }
+
+        @Test
+        fun `updating non-existant workout in table results in no updates`() {
+            transaction {
+                // Arrange - create and populate tables with three users and three activities
+                val userDAO = populateUserTable()
+                val workoutDAO = populateWorkoutTable()
+
+                // Act & Assert
+                val workout4updated = Workout(workout = "Running", duration = 60.0, started = DateTime.now(), userId = 1, id = 2)
+                workoutDAO.updateWorkout(4, workout4updated)
+                assertEquals(null, workoutDAO.findByWorkoutId(4))
+                assertEquals(3, workoutDAO.getAll().size)
             }
         }
     }

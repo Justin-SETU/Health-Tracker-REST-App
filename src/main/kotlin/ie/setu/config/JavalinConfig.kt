@@ -61,6 +61,7 @@ class JavalinConfig {
         app.post("/api/workouts/add", WorkoutController::addWorkout)
         app.get("/api/users/{user-id}/workouts", WorkoutController::getWorkoutsByUserId)
         app.delete("/api/workouts/{user-id}", WorkoutController::deleteWorkoutById)
+        app.patch("/api/workouts/update/{id}", WorkoutController::updateWorkout)
         //----------------------------------
 
         //Status Feature

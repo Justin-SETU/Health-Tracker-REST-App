@@ -59,7 +59,7 @@ class JavalinConfig {
         //Workout Features
         app.get("/api/workouts", WorkoutController::getAllWorkouts)
         app.post("/api/workouts/add", WorkoutController::addWorkout)
-        app.get("/api/users/{user-id}/workouts", WorkoutController::getWorkoutsByUserId)
+        app.get("/api/users/workouts/{user-id}", WorkoutController::getWorkoutsByUserId)
         app.delete("/api/workouts/{user-id}", WorkoutController::deleteWorkoutById)
         app.patch("/api/workouts/update/{id}", WorkoutController::updateWorkout)
         //----------------------------------

@@ -1,7 +1,6 @@
 package ie.setu.controllers
 
 import ie.setu.config.DbConfig
-import ie.setu.controllers.UserController.addUser
 import ie.setu.domain.User
 import ie.setu.helpers.*
 import ie.setu.utils.jsonToObject
@@ -12,10 +11,9 @@ import kong.unirest.Unirest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import kotlin.test.assertNotEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class HealthTrackerControllerTest {
+class UserControllerTest {
 
     private val db = DbConfig().getDbConnection()
     private val app = ServerContainer.instance

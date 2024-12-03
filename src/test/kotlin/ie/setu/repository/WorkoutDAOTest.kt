@@ -85,7 +85,7 @@ class WorkoutDAOTest {
                 // Arrange - create and populate tables with three users and three workouts
                 val userDAO = populateUserTable()
                 val workoutDAO = populateWorkoutTable()
-                assertEquals(2, workoutDAO.findByUserId(1).size)
+                assertEquals(3, workoutDAO.findByUserId(1).size)
             }
         }
 
@@ -176,7 +176,7 @@ class WorkoutDAOTest {
                 val workoutDAO = populateWorkoutTable()
 
                 //Act and Assert
-                val workout3Updated = Workout(workout = "Running", duration = 50.0, started = DateTime.now(), userId = 1, id = 2)
+                val workout3Updated = Workout(workout = "Running", duration = 50.0, started = DateTime.now(), userId = 1, id = 3)
                 workoutDAO.updateWorkout(workout3.id, workout3Updated)
                 assertEquals(workout3Updated, workoutDAO.findByWorkoutId(3))
             }

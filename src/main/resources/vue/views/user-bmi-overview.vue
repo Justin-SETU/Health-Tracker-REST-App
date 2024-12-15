@@ -98,6 +98,7 @@ app.component("user-bmi-overview", {
             });
       }
     },
+
     findbmiCalculator: function () {
       const userId = this.$javalin.pathParams["user-id"];
       const bmiCalculator =0.0

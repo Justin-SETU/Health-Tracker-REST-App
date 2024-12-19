@@ -39,12 +39,12 @@ class JavalinConfig {
         //Addons
         app.get("/api/users/{user-id}", UserController::getUserByUserId)
         app.get("/api/users/email/{email}", UserController::getUserByEmail)
+        app.get("/api/users/{user-id}/activities", ActivityController::getActivitiesByUserId)
         //-----------------------------
 
         //Activity Features
         app.get("/api/activities", ActivityController ::getAllActivities)
         app.post("/api/activities/add", ActivityController::addActivity)
-        app.get("/api/activities/{user-id}", ActivityController:: getActivitiesByUserId)
         app.delete("/api/activities/{id}", ActivityController::deleteActivityById)
         app.patch("/api/activities/update/{id}", ActivityController::updateActivity)
         //--------------------------------

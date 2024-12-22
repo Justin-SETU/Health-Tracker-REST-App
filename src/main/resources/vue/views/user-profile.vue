@@ -11,7 +11,13 @@
           <div class="col" align="right">
             <button rel="tooltip" title="Update"
                     class="btn btn-info btn-simple btn-link"
-                    @click="updateUser()"> Update User
+                    @click="updateUser()">
+              <i class="far fa-save" aria-hidden="true"></i>
+            </button>
+            <button rel="tooltip" title="Delete"
+                    class="btn btn-info btn-simple btn-link"
+                    @click="deleteUser()">
+              <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>
         </div>
@@ -38,10 +44,14 @@
           </div>
         </form>
       </div>
-      <div class="card-footer text-center">
-        <div v-if="user">
-          <a :href="`/users/${user.id}/activities`">View User Activities</a>
-        </div>
+      <div class="card-footer text-left">
+        <p  v-if="activities.length === 0"> No activities yet...</p>
+        <p  v-if="activities.length > 0"> Activities so far...</p>
+        <ul>
+          <li v-for="activity in activities">
+            {{ activity.description }} for {{ activity.duration }} minutes
+          </li>
+        </ul>
       </div>
     </div>
   </app-layout>
@@ -53,6 +63,7 @@ app.component("user-profile", {
   data: () => ({
     user: null,
     noUserFound: false,
+    activities: [],
   }),
   created: function () {
     const userId = this.$javalin.pathParams["user-id"];
@@ -62,7 +73,44 @@ app.component("user-profile", {
         .catch(error => {
           console.log("No user found for id passed in the path parameter: " + error)
           this.noUserFound = true
-        });
+        })
+    axios.get(url + `/activities`)
+        .then(res => this.activities = res.data)
+        .catch(error => {
+          console.log("No activities added yet (this is ok): " + error)
+        })
+  },
+  methods: {
+    updateUser: function () {
+      const userId = this.$javalin.pathParams["user-id"];
+      const url = `/api/users/${userId}`
+      axios.patch(url,
+          {
+            name: this.user.name,
+            email: this.user.email
+          })
+          .then(response =>
+              this.user.push(response.data))
+          .catch(error => {
+            console.log(error)
+          })
+      alert("User updated!")
+    },
+    deleteUser: function () {
+      if (confirm("Do you really want to delete?")) {
+        const userId = this.$javalin.pathParams["user-id"];
+        const url = `/api/users/${userId}`
+        axios.delete(url)
+            .then(response => {
+              alert("User deleted")
+              //display the /users endpoint
+              window.location.href = '/users';
+            })
+            .catch(function (error) {
+              console.log(error)
+            });
+      }
+    }
   }
 });
 </script>

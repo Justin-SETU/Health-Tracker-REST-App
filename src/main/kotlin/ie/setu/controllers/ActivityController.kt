@@ -35,6 +35,7 @@ object ActivityController {
         }
     }
 
+
     fun getActivitiesByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val activities = activityDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -90,6 +91,7 @@ object ActivityController {
             ctx.status(404)
         }
     }
+
 
 
 }

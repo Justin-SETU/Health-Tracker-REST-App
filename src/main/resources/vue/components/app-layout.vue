@@ -33,6 +33,7 @@
   </div>
 </template>
 
+
 <script>
 app.component("app-layout", {template: "#app-layout"});
 </script>

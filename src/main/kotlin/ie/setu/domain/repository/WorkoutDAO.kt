@@ -19,7 +19,7 @@ class WorkoutDAO {
         return workoutsList
     }
 
-    //Find a specific workout by workout id
+    //Find a specific workout by workout ids
     fun findByWorkoutId(id: Int): Workout?{
         return transaction {
             Workouts.selectAll().where { Workouts.id eq id}.map{mapToWorkout(it)}.firstOrNull()

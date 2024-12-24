@@ -85,6 +85,7 @@ app.component("user-overview", {
             });
       }
     },
+
     addUser: function (){
       const url = `/api/users`;
       axios.post(url,

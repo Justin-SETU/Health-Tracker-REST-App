@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Table
 // SRP - Responsibility is to manage one activity.
 //       Database wise, this is the table object.
 
-object Steps : Table("distance") {
+object Steps : Table("steps") {
     val id = integer("id").autoIncrement()
     val distance = double("distance")
     val steps = integer("steps")

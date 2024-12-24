@@ -71,6 +71,14 @@ class JavalinConfig {
         app.get("/api/log/{user-id}", LogController:: getLogsByUserId)
         app.delete("/api/log/{id}", LogController::deleteLogById)
         app.patch("/api/log/update/{id}", LogController::updateLog)
+        //---------------------
+
+        //Steps Features
+        app.get("/api/steps", StepController::getAll)
+        app.post("/api/steps", StepController::addStep)
+        app.get("/api/steps/{user-id}/steps", StepController::getStepsByUserId)
+        app.delete("/api/steps/{id}", StepController::deleteStepByActivityId)
+        app.patch("/api/steps/update/{id}", StepController::updateStep)
 
         //VUE
         // The @routeComponent that we added in layout.html earlier will be replaced

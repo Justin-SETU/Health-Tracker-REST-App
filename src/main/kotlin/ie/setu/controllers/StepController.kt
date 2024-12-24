@@ -1,17 +1,10 @@
 package ie.setu.controllers
 
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.joda.JodaModule
 import ie.setu.domain.repository.UserDAO
-
 import io.javalin.http.Context
-
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import ie.setu.domain.Step
-import ie.setu.domain.Step
-
 import ie.setu.domain.repository.StepDAO
+import ie.setu.utils.jsonToObject
 
 //main endpoints and http requests for handling API requests, handles different things
 object StepController {
@@ -21,7 +14,7 @@ object StepController {
     // StepDAO specifics
     //-------------------------------------------------------------
 
-    fun getAllActivities(ctx: Context) {
+    fun getAll(ctx: Context) {
         val steps = stepDAO.getAll()
         if (steps.size != 0) {
             ctx.status(200)
@@ -48,16 +41,7 @@ object StepController {
         }
     }
 
-    fun getStepsByActivityId(ctx: Context) {
-        val step = stepDAO.findByStepId((ctx.pathParam("step-id").toInt()))
-        if (step != null){
-            ctx.json(step)
-            ctx.status(200)
-        }
-        else{
-            ctx.status(404)
-        }
-    }
+
 
     fun addStep(ctx: Context) {
         val step : Step = jsonToObject(ctx.body())
@@ -74,10 +58,34 @@ object StepController {
     }
 
     fun deleteStepByActivityId(ctx: Context){
-        if (stepDAO.deleteByActivityId(ctx.pathParam("step-id").toInt()) != 0)
+        if (stepDAO.deleteByStepId(ctx.pathParam("step-id").toInt()) != 0)
             ctx.status(204)
         else
             ctx.status(404)
+    }
+
+
+
+    fun updateStep(ctx: Context){
+        val step : Step = jsonToObject(ctx.body())
+        if (stepDAO.updateByStepId(
+                stepId = ctx.pathParam("step-id").toInt(),
+                stepToUpdate = step) != 0)
+            ctx.status(204)
+        else
+            ctx.status(404)
+    }
+
+
+    fun getStepsByActivityId(ctx: Context) {
+        val step = stepDAO.findByStepId((ctx.pathParam("step-id").toInt()))
+        if (step != null){
+            ctx.json(step)
+            ctx.status(200)
+        }
+        else{
+            ctx.status(404)
+        }
     }
 
     fun deleteStepByUserId(ctx: Context){
@@ -87,13 +95,5 @@ object StepController {
             ctx.status(404)
     }
 
-    fun updateStep(ctx: Context){
-        val step : Step = jsonToObject(ctx.body())
-        if (stepDAO.updateByActivityId(
-                stepId = ctx.pathParam("step-id").toInt(),
-                stepToUpdate = step) != 0)
-            ctx.status(204)
-        else
-            ctx.status(404)
-    }
+
 }

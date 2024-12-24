@@ -54,7 +54,7 @@ class BmiDAO {
         return (weight/(height*height))
     }
 
-
+//errors
 
     //delete by user id of an bmi from database
     fun delete(id: Int): Int {

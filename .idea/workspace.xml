@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="94a1eaf0-4fd2-4187-9580-9c1bca90ffa2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/BmiDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/domain/repository/BmiDAO.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +21,6 @@
       <list>
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
-        <option value="HTML File" />
-        <option value="Vue Options API Component" />
       </list>
     </option>
   </component>
@@ -71,8 +70,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JUnit.ActivityControllerTest.executor": "Run",
+    "JUnit.ActivityControllerTest.executor": "Coverage",
     "JUnit.ActivityDAOTest.executor": "Coverage",
     "JUnit.BmiDAOTest.executor": "Coverage",
     "JUnit.HealthTrackerControllerTest.executor": "Coverage",
@@ -86,7 +84,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "vue",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/itsju/Downloads/healthtracker-12.0 (1)",
+    "last_opened_file_path": "D:/Coding/Kotlin/Interim Submission/Coverage Report/ActivityControllerTest",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,11 +93,6 @@
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Options API Component"
-    ]
   }
 }]]></component>
   <component name="RunManager">
@@ -202,11 +195,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ActivityControllerTest" />
-        <item itemvalue="JUnit.UserControllerTest" />
-        <item itemvalue="JUnit.WorkoutDAOTest" />
         <item itemvalue="JUnit.UserDAOTest" />
         <item itemvalue="JUnit.LogDAOTest" />
+        <item itemvalue="JUnit.WorkoutDAOTest" />
+        <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="JUnit.ActivityControllerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -251,11 +244,6 @@
       <workItem from="1731790844505" duration="5705000" />
       <workItem from="1731797330408" duration="16473000" />
       <workItem from="1732221918850" duration="1411000" />
-      <workItem from="1733950642431" duration="161000" />
-      <workItem from="1734299084906" duration="638000" />
-      <workItem from="1734519133813" duration="3731000" />
-      <workItem from="1734532968277" duration="979000" />
-      <workItem from="1734538887333" duration="14797000" />
     </task>
     <servers />
   </component>

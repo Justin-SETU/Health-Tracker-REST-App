@@ -53,3 +53,10 @@ fun mapToLog(it: ResultRow) = Log(
     status_type = it[Logs.status_type],
     userId = it[Logs.userId]
 )
+
+fun mapToStep(it: ResultRow) = Step(
+    id = it[Steps.id],
+    distance = it[Steps.distance],
+    steps = it[Steps.steps],
+    userId = it[Steps.userId]
+)

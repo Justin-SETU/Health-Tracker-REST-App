@@ -87,6 +87,16 @@ class JavalinConfig {
         app.patch("/api/sleep/update/{id}", SleepController::updateSleep)
         //----------------------------------
 
+        //Water Features
+        app.get("/api/water", WaterController ::getAllWater)
+        app.post("/api/water/add", WaterController::addWater)
+        app.get("/api/water/{user-id}", WaterController:: getWaterByUserId)
+        app.delete("/api/water/{id}", WaterController::deleteWaterById)
+        app.patch("/api/water/update/{id}", WaterController::updateWater)
+        //----------------------------------
+
+
+
         //VUE
         // The @routeComponent that we added in layout.html earlier will be replaced
         // by the String inside the VueComponent. This means a call to / will load

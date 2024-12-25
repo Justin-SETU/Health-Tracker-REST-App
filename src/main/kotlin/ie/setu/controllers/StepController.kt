@@ -1,8 +1,8 @@
 package ie.setu.controllers
 
+import ie.setu.domain.Step
 import ie.setu.domain.repository.UserDAO
 import io.javalin.http.Context
-import ie.setu.domain.Step
 import ie.setu.domain.repository.StepDAO
 import ie.setu.utils.jsonToObject
 
@@ -57,43 +57,6 @@ object StepController {
         }
     }
 
-    fun deleteStepByActivityId(ctx: Context){
-        if (stepDAO.deleteByStepId(ctx.pathParam("step-id").toInt()) != 0)
-            ctx.status(204)
-        else
-            ctx.status(404)
-    }
-
-
-
-    fun updateStep(ctx: Context){
-        val step : Step = jsonToObject(ctx.body())
-        if (stepDAO.updateByStepId(
-                stepId = ctx.pathParam("step-id").toInt(),
-                stepToUpdate = step) != 0)
-            ctx.status(204)
-        else
-            ctx.status(404)
-    }
-
-
-    fun getStepsByActivityId(ctx: Context) {
-        val step = stepDAO.findByStepId((ctx.pathParam("step-id").toInt()))
-        if (step != null){
-            ctx.json(step)
-            ctx.status(200)
-        }
-        else{
-            ctx.status(404)
-        }
-    }
-
-    fun deleteStepByUserId(ctx: Context){
-        if (stepDAO.deleteByUserId(ctx.pathParam("user-id").toInt()) != 0)
-            ctx.status(204)
-        else
-            ctx.status(404)
-    }
 
 
 }

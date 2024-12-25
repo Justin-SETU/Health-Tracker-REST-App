@@ -60,3 +60,10 @@ fun mapToStep(it: ResultRow) = Step(
     steps = it[Steps.steps],
     userId = it[Steps.userId]
 )
+
+fun mapToSleep(it: ResultRow) = Sleep(
+    id = it[Sleeps.id],
+    duration = it[Sleeps.duration],
+    started = it[Sleeps.started],
+    userId = it[Sleeps.userId]
+)

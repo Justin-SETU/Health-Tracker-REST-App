@@ -77,8 +77,7 @@ class JavalinConfig {
         app.get("/api/steps", StepController::getAll)
         app.post("/api/steps", StepController::addStep)
         app.get("/api/steps/{user-id}/steps", StepController::getStepsByUserId)
-        app.delete("/api/steps/{id}", StepController::deleteStepByActivityId)
-        app.patch("/api/steps/update/{id}", StepController::updateStep)
+
 
         //Sleep Features
         app.get("/api/sleep", SleepController ::getAllSleep)

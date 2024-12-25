@@ -1,9 +1,8 @@
 package ie.setu.domain.repository
 
 import ie.setu.domain.Sleep
-import ie.setu.domain.Workout
 import ie.setu.domain.db.Sleeps
-import ie.setu.utils.mapToWorkout
+import ie.setu.utils.mapToSleep
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -11,26 +10,26 @@ import org.jetbrains.exposed.sql.transactions.transaction
 //workout data access objects that handles database operations
 class SleepDAO {
 
-    //Get all the sleeps in the database regardless of user id
-    fun getAll(): ArrayList<Workout> {
-        val workoutsList: ArrayList<Workout> = arrayListOf()
+    //Get all the activities in the database regardless of user id
+    fun getAll(): ArrayList<Sleep> {
+        val sleepsList: ArrayList<Sleep> = arrayListOf()
         transaction {
-            Sleeps.selectAll().map { workoutsList.add(mapToWorkout(it)) }
+            Sleeps.selectAll().map { sleepsList.add(mapToSleep(it)) }
         }
-        return workoutsList
+        return sleepsList
     }
 
     //Find a specific workout by workout ids
-    fun findBySleepId(id: Int): Workout?{
+    fun findBySleepId(id: Int): Sleep?{
         return transaction {
-            Sleeps.selectAll().where { Sleeps.id eq id}.map{mapToWorkout(it)}.firstOrNull()
+            Sleeps.selectAll().where { Sleeps.id eq id}.map{ mapToSleep(it) }.firstOrNull()
         }
     }
 
     //Find all sleeps for a specific user id
-    fun findByUserId(userId: Int): List<Workout>{
+    fun findByUserId(userId: Int): List<Sleep>{
         return transaction {
-            Sleeps.selectAll().where {Sleeps.userId eq userId}.map {mapToWorkout(it)}
+            Sleeps.selectAll().where {Sleeps.userId eq userId}.map { mapToSleep(it) }
         }
     }
 

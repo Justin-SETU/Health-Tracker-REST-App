@@ -80,6 +80,14 @@ class JavalinConfig {
         app.delete("/api/steps/{id}", StepController::deleteStepByActivityId)
         app.patch("/api/steps/update/{id}", StepController::updateStep)
 
+        //Sleep Features
+        app.get("/api/sleep", SleepController ::getAllSleep)
+        app.post("/api/sleep/add", SleepController::addSleep)
+        app.get("/api/sleep/{user-id}", SleepController:: getSleepByUserId)
+        app.delete("/api/sleep/{id}", SleepController::deleteSleepById)
+        app.patch("/api/sleep/update/{id}", SleepController::updateSleep)
+        //----------------------------------
+
         //VUE
         // The @routeComponent that we added in layout.html earlier will be replaced
         // by the String inside the VueComponent. This means a call to / will load

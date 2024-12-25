@@ -1,5 +1,11 @@
 package ie.setu.controllers
 
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.joda.JodaModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import ie.setu.controllers.ActivityController.activityDAO
+import ie.setu.domain.Activity
 import ie.setu.domain.repository.UserDAO
 import io.javalin.http.Context
 import ie.setu.domain.Step
@@ -74,6 +80,25 @@ object StepController {
             ctx.status(204)
         else
             ctx.status(404)
+    }
+    fun deleteActivityById(ctx: Context) {
+        if((activityDAO.delete(ctx.pathParam("id").toInt()))!=0){
+            ctx.status(204)
+        } else {
+            ctx.status(404)
+        }
+    }
+    //update the activity as per activity id
+    fun updateActivity(ctx: Context) {
+
+        val mapper = jacksonObjectMapper().registerModule(JodaModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+        val activityUpdates = mapper.readValue<Activity>(ctx.body())
+        if((StepDAO.updateByStepId(id = ctx.pathParam("id").toInt(), activity=activityUpdates))!=0){
+            ctx.status(204)
+        }else {
+            ctx.status(404)
+        }
     }
 
 

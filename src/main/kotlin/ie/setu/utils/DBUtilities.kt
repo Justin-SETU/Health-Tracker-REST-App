@@ -67,3 +67,10 @@ fun mapToSleep(it: ResultRow) = Sleep(
     started = it[Sleeps.started],
     userId = it[Sleeps.userId]
 )
+
+fun mapToWater(it: ResultRow) = Water(
+    id = it[Waters.id],
+    waterintake = it[Waters.waterintake],
+    started = it[Waters.started],
+    userId = it[Waters.userId]
+)

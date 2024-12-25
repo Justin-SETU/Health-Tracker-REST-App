@@ -47,6 +47,12 @@ val logs = arrayListOf<Log>(
     Log(status_type = "weekly", summary = "6 hours",  started = DateTime.now(), userId = 1, id = 3),
 )
 
+val meals = arrayListOf<Meal>(
+    Meal(food = "Bread", calories = 30.4, started = DateTime.now(), userId = 1, id = 1),
+    Meal(food = "Apple", calories = 40.0, started = DateTime.now(), userId = 1, id = 2),
+    Meal(food = "Orange", calories = 50.0,  started = DateTime.now(), userId = 1, id = 3),
+)
+
 
 
 
@@ -95,4 +101,11 @@ internal fun populateLogTable(): LogDAO {
     return logDAO
 }
 
-
+internal fun populateMealTable(): MealDAO {
+    SchemaUtils.create(Meals)
+    val mealDAO = MealDAO()
+    mealDAO.save(meal1)
+    mealDAO.save(meal2)
+    mealDAO.save(meal3)
+    return mealDAO
+}

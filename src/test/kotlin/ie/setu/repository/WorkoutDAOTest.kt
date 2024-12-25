@@ -1,11 +1,8 @@
 package ie.setu.repository
 
-
 import ie.setu.domain.Workout
 import ie.setu.domain.db.Workouts
-import ie.setu.domain.db.Users
 import ie.setu.domain.repository.WorkoutDAO
-import ie.setu.domain.repository.UserDAO
 import ie.setu.helpers.workouts
 import ie.setu.helpers.populateWorkoutTable
 import ie.setu.helpers.populateUserTable

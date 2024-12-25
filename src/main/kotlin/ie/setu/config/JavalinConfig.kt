@@ -65,7 +65,7 @@ class JavalinConfig {
         app.patch("/api/workouts/update/{id}", WorkoutController::updateWorkout)
         //----------------------------------
 
-        //Status Feature
+        //Status Features
         app.get("/api/log", LogController ::getAllLogs)
         app.post("/api/log/add", LogController::addLog)
         app.get("/api/log/{user-id}", LogController:: getLogsByUserId)

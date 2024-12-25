@@ -53,6 +53,24 @@ val meals = arrayListOf<Meal>(
     Meal(food = "Orange", calories = 50.0,  started = DateTime.now(), userId = 1, id = 3),
 )
 
+val sleeps = arrayListOf<Sleep>(
+    Sleep(duration = 30.4, started = DateTime.now(), userId = 1, id = 1),
+    Sleep(duration = 40.0, started = DateTime.now(), userId = 1, id = 2),
+    Sleep(duration = 50.0,  started = DateTime.now(), userId = 1, id = 3),
+)
+
+val steps = arrayListOf<Step>(
+    Step(distance = 30.4, stepcount = 1000, userId = 1, id = 1),
+    Step(distance = 40.0, stepcount = 2000, userId = 1, id = 2),
+    Step(distance = 50.0,  stepcount = 3000, userId = 1, id = 3),
+)
+
+val waters = arrayListOf<Water>(
+    Water(waterintake = 30.4, started = DateTime.now(), userId = 1, id = 1),
+    Water(waterintake = 40.0, started = DateTime.now(), userId = 1, id = 2),
+    Water(waterintake = 50.0,  started = DateTime.now(), userId = 1, id = 3),
+)
+
 
 
 
@@ -108,4 +126,31 @@ internal fun populateMealTable(): MealDAO {
     mealDAO.save(meal2)
     mealDAO.save(meal3)
     return mealDAO
+}
+
+internal fun populateSleepTable(): SleepDAO {
+    SchemaUtils.create(Sleeps)
+    val sleepDAO = SleepDAO()
+    sleepDAO.save(sleep1)
+    sleepDAO.save(sleep2)
+    sleepDAO.save(sleep3)
+    return sleepDAO
+}
+
+internal fun populateStepTable(): StepDAO {
+    SchemaUtils.create(Steps)
+    val stepDAO = StepDAO()
+    stepDAO.save(step1)
+    stepDAO.save(step2)
+    stepDAO.save(step3)
+    return stepDAO
+}
+
+internal fun populateWaterTable(): WaterDAO {
+    SchemaUtils.create(Waters)
+    val waterDAO = WaterDAO()
+    waterDAO.save(water1)
+    waterDAO.save(water2)
+    waterDAO.save(water3)
+    return waterDAO
 }

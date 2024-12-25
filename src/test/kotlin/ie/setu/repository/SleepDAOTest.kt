@@ -173,7 +173,7 @@ class SleepDAOTest {
                 val sleepDAO = populateSleepTable()
 
                 //Act and Assert
-                val sleep3Updated = Sleep(food = "Sandwich", calories = 50.0, started = DateTime.now(), userId = 1, id = 3)
+                val sleep3Updated = Sleep(duration = 30.4, started = DateTime.now(), userId = 1, id = 3)
                 sleepDAO.updateSleep(sleep3.id, sleep3Updated)
                 assertEquals(sleep3Updated, sleepDAO.findBySleepId(3))
             }
@@ -187,7 +187,7 @@ class SleepDAOTest {
                 val sleepDAO = populateSleepTable()
 
                 // Act & Assert
-                val sleep4updated = Sleep(food = "burger", calories = 60.0, started = DateTime.now(), userId = 1, id = 2)
+                val sleep4updated = Sleep(duration = 30.5, started = DateTime.now(), userId = 1, id = 2)
                 sleepDAO.updateSleep(4, sleep4updated)
                 assertEquals(null, sleepDAO.findBySleepId(4))
                 assertEquals(3, sleepDAO.getAll().size)

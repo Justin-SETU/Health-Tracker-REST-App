@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94a1eaf0-4fd2-4187-9580-9c1bca90ffa2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/MealDAOTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/StepDAOTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/WaterDAOTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ie/setu/config/JavalinConfig.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/ie/setu/helpers/Fixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/helpers/Fixtures.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/WorkoutDAOTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/WorkoutDAOTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/SleepDAOTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/SleepDAOTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +79,7 @@
     "JUnit.HealthTrackerControllerTest.executor": "Coverage",
     "JUnit.LogDAOTest.executor": "Coverage",
     "JUnit.MealDAOTest.executor": "Coverage",
+    "JUnit.SleepDAOTest.executor": "Coverage",
     "JUnit.UserControllerTest.executor": "Coverage",
     "JUnit.UserDAOTest.executor": "Coverage",
     "JUnit.WorkoutDAOTest.executor": "Coverage",
@@ -99,7 +100,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.MealDAOTest">
+  <component name="RunManager" selected="JUnit.SleepDAOTest">
     <configuration name="LogDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Health-tracker-rest" />
       <extension name="coverage">
@@ -134,6 +135,46 @@
       </extension>
       <option name="PACKAGE_NAME" value="ie.setu.repository" />
       <option name="MAIN_CLASS_NAME" value="ie.setu.repository.MealDAOTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SleepDAOTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Health-tracker-rest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ie.setu.repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="ie.setu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ie.setu.repository" />
+      <option name="MAIN_CLASS_NAME" value="ie.setu.repository.SleepDAOTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StepDAOTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Health-tracker-rest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ie.setu.repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="ie.setu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ie.setu.repository" />
+      <option name="MAIN_CLASS_NAME" value="ie.setu.repository.StepDAOTest" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
@@ -175,6 +216,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WaterDAOTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Health-tracker-rest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ie.setu.repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="ie.setu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ie.setu.repository" />
+      <option name="MAIN_CLASS_NAME" value="ie.setu.repository.WaterDAOTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WorkoutDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Health-tracker-rest" />
       <extension name="coverage">
@@ -197,6 +258,9 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.MealDAOTest" />
+      <item itemvalue="JUnit.SleepDAOTest" />
+      <item itemvalue="JUnit.StepDAOTest" />
+      <item itemvalue="JUnit.WaterDAOTest" />
       <item itemvalue="JUnit.UserControllerTest" />
       <item itemvalue="JUnit.WorkoutDAOTest" />
       <item itemvalue="JUnit.LogDAOTest" />
@@ -306,8 +370,9 @@
       <FILTER>ie.setu.repository.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Health_tracker_rest$MealDAOTest.ic" NAME="MealDAOTest Coverage Results" MODIFIED="1735156712589" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$MealDAOTest.ic" NAME="MealDAOTest Coverage Results" MODIFIED="1735156838041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
+      <FILTER>ie.setu.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Health_tracker_rest$WorkoutDAOTest.ic" NAME="WorkoutDAOTest Coverage Results" MODIFIED="1735156089420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>

@@ -57,7 +57,7 @@ fun mapToLog(it: ResultRow) = Log(
 fun mapToStep(it: ResultRow) = Step(
     id = it[Steps.id],
     distance = it[Steps.distance],
-    steps = it[Steps.steps],
+    stepcount = it[Steps.stepcount],
     userId = it[Steps.userId]
 )
 
@@ -73,4 +73,12 @@ fun mapToWater(it: ResultRow) = Water(
     waterintake = it[Waters.waterintake],
     started = it[Waters.started],
     userId = it[Waters.userId]
+)
+
+fun mapToMeal(it: ResultRow) = Meal(
+    id = it[Meals.id],
+    food = it[Meals.food],
+    calories = it[Meals.calories],
+    started = it[Meals.started],
+    userId = it[Meals.userId]
 )

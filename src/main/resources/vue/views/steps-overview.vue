@@ -1,10 +1,10 @@
-<template id="bmi-overview">
+<template id="steps-overview">
   <app-layout>
     <div class="card bg-light mb-3">
       <div class="card-header">
         <div class="row">
           <div class="col-6">
-            BMI Summary
+            Steps Summary
           </div>
           <div class="col" align="right">
             <button rel="tooltip" title="Add"
@@ -19,9 +19,9 @@
     </div>
     <div class="list-group list-group-flush">
       <div class="list-group-item d-flex align-items-start"
-           v-for="(bmi,index) in bmis" v-bind:key="index">
+           v-for="(step,index) in steps" v-bind:key="index">
         <div class="mr-auto p-2">
-          <span>User {{ bmi.userId }} have BMI Value {{ bmi.bmivalue }} on {{ bmi.started}}</span>
+          <span>User {{ step.userId }} covered {{ step.distance }} meters in  {{ step.stepcount}} steps</span>
         </div>
 
       </div>
@@ -29,22 +29,22 @@
   </app-layout>
 </template>
 <script>
-app.component("bmi-overview", {
-  template: "#bmi-overview",
+app.component("steps-overview", {
+  template: "#steps-overview",
   data: () => ({
     users: [],
     formData: [],
     hideForm :true,
-    bmis: []
+    steps: []
   }),
   created() {
     this.fetchUsers();
   },
   methods: {
     fetchUsers: function () {
-      axios.get("/api/bmi")
-          .then(res => this.bmis = res.data)
-          .catch(() => console.log("Error while fetching bmies"));
+      axios.get("/api/steps")
+          .then(res => this.steps = res.data)
+          .catch(() => console.log("Error while fetching stepcount"));
     },
   }
 });

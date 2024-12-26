@@ -29,6 +29,12 @@
             </div>
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="Email"/>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="input-user-password">Password</span>
+            </div>
+            <input type="email" class="form-control" v-model="formData.password" name="password" placeholder="Password"/>
+          </div>
         </form>
         <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addUser()">Add User</button>
       </div>
@@ -87,7 +93,7 @@ app.component("user-overview", {
     },
 
     addUser: function (){
-      const url = `/api/users`;
+      const url = `/api/users/create-user`;
       axios.post(url,
           {
             name: this.formData.name,

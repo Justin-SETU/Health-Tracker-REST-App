@@ -26,7 +26,7 @@
             <h5 class="card-header">BMI Summary</h5>
             <div class="card-body">
               <h5 class="card-title">{{bmis.length}} BMI records</h5>
-              <a href="/bmis" class="btn btn-primary">More Details...</a>
+              <a href="/bmi" class="btn btn-primary">More Details...</a>
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
             <h5 class="card-header">Steps Summary</h5>
             <div class="card-body">
               <h5 class="card-title">{{steps.length}} steps records</h5>
-              <a href="/steps" class="btn btn-primary">More Details...</a>
+              <a href="/step" class="btn btn-primary">More Details...</a>
             </div>
           </div>
         </div>
@@ -63,10 +63,10 @@ app.component('home-page',
             .catch(() => alert("Error while fetching activities"));
         axios.get("/api/bmi")
             .then(res => this.bmis = res.data)
-            .catch(() => alert("Error while fetching activities"));
+            .catch(() => alert("Error while fetching bmis"));
         axios.get("/api/steps")
             .then(res => this.steps = res.data)
-            .catch(() => alert("Error while fetching activities"));
+            .catch(() => alert("Error while fetching steps"));
       }
     });
 </script>

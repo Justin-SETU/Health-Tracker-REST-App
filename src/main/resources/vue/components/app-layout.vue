@@ -29,6 +29,14 @@
         </div>
       </div>
       <!--End of main content area-->
+      <!-- Start of footer -->
+      <footer class="footer mt-5">
+        <div class="container text-center py-3">
+          <p>&copy; 2024 Health Tracker. All rights reserved.</p>
+          <p>Made by Justin, MSc ISP</p>
+        </div>
+      </footer>
+      <!-- End of footer -->
     </div>
   </div>
 </template>
@@ -42,4 +50,13 @@ app.component("app-layout", {template: "#app-layout"});
 .navbar {
   background-color: #fff9c4;
 }
+
+.content {
+  background-color: #fff8e1;
+}
+
+.footer {
+  background-color: #fff7d6;
+}
+
 </style>

@@ -5,7 +5,7 @@ info:
   description: This API provides endpoints for handling CRUD operations on the Health Tracker data.
   contact:
     name: Justin Jose
-    email: 20110497@mailwit.ie
+    email: justin.jose@setu.ie
 
 paths:
   /api/users/login-user:
@@ -562,7 +562,403 @@ paths:
         '200':
           description: Log updated successfully.
         '404':
-          description: Log not found.        
+          description: Log not found. 
+  /api/step:
+    get:
+      summary: Get All Steps
+      description: Retrieve a list of all step records.
+      responses:
+        '200':
+          description: Successfully retrieved step records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Step'
+
+  /api/step/add:
+    post:
+      summary: Add a New Step
+      description: Add a new step record to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Step'
+      responses:
+        '201':
+          description: Step added successfully.
+
+  /api/step/{user-id}:
+    get:
+      summary: Get Steps by User ID
+      description: Retrieve step records for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved step records for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Step'
+        '404':
+          description: User not found.
+
+  /api/step/{id}:
+    delete:
+      summary: Delete Step by ID
+      description: Delete a specific step record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Step deleted successfully.
+        '404':
+          description: Step not found.
+
+  /api/step/update/{id}:
+    patch:
+      summary: Update Step by ID
+      description: Update details of a step record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status_type:
+                  type: string
+                  example: "Completed"
+                summary:
+                  type: string
+                  example: "Workout completed"
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: Step updated successfully.
+        '404':
+          description: Step not found. 
+  
+  /api/sleep:
+    get:
+      summary: Get All Sleeps
+      description: Retrieve a list of all sleep records.
+      responses:
+        '200':
+          description: Successfully retrieved sleep records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sleep'
+
+  /api/sleep/add:
+    post:
+      summary: Add a New Sleep
+      description: Add a new sleep record to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sleep'
+      responses:
+        '201':
+          description: Sleep added successfully.
+
+  /api/sleep/{user-id}:
+    get:
+      summary: Get Sleeps by User ID
+      description: Retrieve sleep records for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved sleep records for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sleep'
+        '404':
+          description: User not found.
+
+  /api/sleep/{id}:
+    delete:
+      summary: Delete Sleep by ID
+      description: Delete a specific sleep record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Sleep deleted successfully.
+        '404':
+          description: Sleep not found.
+
+  /api/sleep/update/{id}:
+    patch:
+      summary: Update Sleep by ID
+      description: Update details of a sleep record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status_type:
+                  type: string
+                  example: "Completed"
+                summary:
+                  type: string
+                  example: "Workout completed"
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: Sleep updated successfully.
+        '404':
+          description: Sleep not found. 
+  
+  /api/water:
+    get:
+      summary: Get All Waters
+      description: Retrieve a list of all water records.
+      responses:
+        '200':
+          description: Successfully retrieved water records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Water'
+
+  /api/water/add:
+    post:
+      summary: Add a New Water
+      description: Add a new water record to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Water'
+      responses:
+        '201':
+          description: Water added successfully.
+
+  /api/water/{user-id}:
+    get:
+      summary: Get Waters by User ID
+      description: Retrieve water records for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved water records for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Water'
+        '404':
+          description: User not found.
+
+  /api/water/{id}:
+    delete:
+      summary: Delete Water by ID
+      description: Delete a specific water record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Water deleted successfully.
+        '404':
+          description: Water not found.
+
+  /api/water/update/{id}:
+    patch:
+      summary: Update Water by ID
+      description: Update details of a water record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status_type:
+                  type: string
+                  example: "Completed"
+                summary:
+                  type: string
+                  example: "Workout completed"
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: Water updated successfully.
+        '404':
+          description: Water not found. 
+  
+  /api/meal:
+    get:
+      summary: Get All Meals
+      description: Retrieve a list of all meal records.
+      responses:
+        '200':
+          description: Successfully retrieved meal records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+
+  /api/meal/add:
+    post:
+      summary: Add a New Meal
+      description: Add a new meal record to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meal'
+      responses:
+        '201':
+          description: Meal added successfully.
+
+  /api/meal/{user-id}:
+    get:
+      summary: Get Meals by User ID
+      description: Retrieve meal records for a specific user by their user ID.
+      parameters:
+        - name: user-id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retrieved meal records for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+        '404':
+          description: User not found.
+
+  /api/meal/{id}:
+    delete:
+      summary: Delete Meal by ID
+      description: Delete a specific meal record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Meal deleted successfully.
+        '404':
+          description: Meal not found.
+
+  /api/meal/update/{id}:
+    patch:
+      summary: Update Meal by ID
+      description: Update details of a meal record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status_type:
+                  type: string
+                  example: "Completed"
+                summary:
+                  type: string
+                  example: "Workout completed"
+                started:
+                  type: string
+                  format: date-time
+                  example: "2024-11-16T10:00:00Z"
+      responses:
+        '200':
+          description: Meal updated successfully.
+        '404':
+          description: Meal not found. 
+  
           
 components:
   schemas:
@@ -669,6 +1065,100 @@ components:
           example: "2024-11-16T10:00:00Z"
         userId:
           type: integer
-          example: 1      
+          example: 1  
+          
+    Step:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the step record.
+        distance:
+          type: number
+          format: float
+          description: The distance traveled (in meters, kilometers, or any other applicable unit).
+        stepcount:
+          type: integer
+          description: The total number of steps taken.
+        userId:
+          type: integer
+          description: Unique identifier for the user to whom the step record belongs.
+      required:
+        - distance
+        - stepcount
+        - userId
+        
+        
+    Sleep:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the sleep record.
+        duration:
+          type: number
+          format: float
+          description: The duration of sleep in hours or minutes.
+        started:
+          type: string
+          format: date-time
+          description: The timestamp when the sleep period started.
+        userId:
+          type: integer
+          description: Unique identifier for the user to whom the sleep record belongs.
+      required:
+        - duration
+        - started
+        - userId
+    
+    Meal:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the meal record.
+        food:
+          type: string
+          maxLength: 100
+          description: The name of the food consumed during the meal.
+        calories:
+          type: number
+          format: float
+          description: The number of calories in the meal.
+        started:
+          type: string
+          format: date-time
+          description: The timestamp when the meal was consumed.
+        userId:
+          type: integer
+          description: Unique identifier for the user to whom the meal record belongs.
+      required:
+        - food
+        - calories
+        - started
+        - userId
+        
+    Water:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the water intake record.
+        waterintake:
+          type: number
+          format: float
+          description: The amount of water consumed in liters or milliliters.
+        started:
+          type: string
+          format: date-time
+          description: The timestamp when the water intake was recorded.
+        userId:
+          type: integer
+          description: Unique identifier for the user to whom the water intake record belongs.
+      required:
+        - waterintake
+        - started
+        - userId
+    
           
           

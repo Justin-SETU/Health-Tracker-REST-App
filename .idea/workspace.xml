@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94a1eaf0-4fd2-4187-9580-9c1bca90ffa2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/StepDAOTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/WaterDAOTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ie/setu/helpers/Fixtures.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/helpers/Fixtures.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/SleepDAOTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ie/setu/repository/SleepDAOTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/health-tracker-api.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/health-tracker-api.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +77,10 @@
     "JUnit.LogDAOTest.executor": "Coverage",
     "JUnit.MealDAOTest.executor": "Coverage",
     "JUnit.SleepDAOTest.executor": "Coverage",
+    "JUnit.StepDAOTest.executor": "Coverage",
     "JUnit.UserControllerTest.executor": "Coverage",
     "JUnit.UserDAOTest.executor": "Coverage",
+    "JUnit.WaterDAOTest.executor": "Coverage",
     "JUnit.WorkoutDAOTest.executor": "Coverage",
     "Kotlin.AppKt.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
@@ -344,7 +343,11 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Health_tracker_rest$BmiDAOTest.ic" NAME="BmiDAOTest Coverage Results" MODIFIED="1731831544293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$WaterDAOTest.ic" NAME="WaterDAOTest Coverage Results" MODIFIED="1735159856710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>ie.setu.repository.*</FILTER>
+      <FILTER>ie.setu.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$StepDAOTest.ic" NAME="StepDAOTest Coverage Results" MODIFIED="1735159886103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
@@ -355,7 +358,7 @@
     <SUITE FILE_PATH="coverage/Health_tracker_rest$ActivityControllerTest.ic" NAME="ActivityControllerTest Coverage Results" MODIFIED="1731832080657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.controllers.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Health_tracker_rest$ActivityDAOTest.ic" NAME="ActivityDAOTest Coverage Results" MODIFIED="1731831342572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$SleepDAOTest.ic" NAME="SleepDAOTest Coverage Results" MODIFIED="1735159912114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
@@ -366,15 +369,23 @@
       <FILTER>ie.setu.controllers.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Health_tracker_rest$LogDAOTest.ic" NAME="LogDAOTest Coverage Results" MODIFIED="1731831609163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>ie.setu.repository.*</FILTER>
-      <FILTER>ie.setu.*</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/Health_tracker_rest$MealDAOTest.ic" NAME="MealDAOTest Coverage Results" MODIFIED="1735156838041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Health_tracker_rest$WorkoutDAOTest.ic" NAME="WorkoutDAOTest Coverage Results" MODIFIED="1735156089420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>ie.setu.repository.*</FILTER>
+      <FILTER>ie.setu.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$BmiDAOTest.ic" NAME="BmiDAOTest Coverage Results" MODIFIED="1731831544293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>ie.setu.repository.*</FILTER>
+      <FILTER>ie.setu.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$ActivityDAOTest.ic" NAME="ActivityDAOTest Coverage Results" MODIFIED="1731831342572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>ie.setu.repository.*</FILTER>
+      <FILTER>ie.setu.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$LogDAOTest.ic" NAME="LogDAOTest Coverage Results" MODIFIED="1731831609163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>

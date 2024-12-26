@@ -3,7 +3,7 @@
     <div class="container">
       <!-- Start of navbar -->
       <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="/">Health Tracker</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,6 @@ app.component("app-layout", {template: "#app-layout"});
 
 <style>
 .navbar {
-  background-color: #e3f2fd;
+  background-color: #fff9c4;
 }
 </style>

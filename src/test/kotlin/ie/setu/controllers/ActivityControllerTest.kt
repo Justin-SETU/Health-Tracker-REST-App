@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import kotlin.test.assertEquals
 
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ActivityControllerTest {
 
@@ -18,74 +19,125 @@ class ActivityControllerTest {
     private val app = ServerContainer.instance
     private val origin = "http://localhost:" + app.port()
 
+    private val validUserId = 1 // Replace with a valid user ID from your database
+    private val invalidUserId = -1
+    private val validActivityId = 1 // Replace with a valid activity ID from your database
+    private val invalidActivityId = -1
 
-    fun addUser (description: String, duration: Double, calories: Int, started: DateTime ): HttpResponse<JsonNode> {
-        return Unirest.post("$origin/api/users/create-user")
-            .body("{\"description\":\"$description\", \"duration\":\"$duration\", \"calories\":\"$calories\", \"started\":\"$started\"}")
-            .asJson()
-    }
+    @Nested
+    inner class CreateActivities {
 
-    // helper function to retrieve a test user from the database by id
-    private fun retrieveUserById(id: Int): HttpResponse<String> {
-        return Unirest.get(origin + "/api/users/$id").asString()
-    }
+        @Test
+        fun `adding an activity for an existing user returns 201`() {
+            val response = Unirest.post("$origin/api/activities")
+                .body(
+                    """{
+                        "description": "Running",
+                        "duration": 30.0,
+                        "calories": 250,
+                        "started": "2024-12-26T10:00:00",
+                        "userId": $validUserId
+                    }"""
+                ).asJson()
 
-    // helper function to add a test user to the database
-    private fun updateActivity(
-        id: Int,
-        description: String,
-        duration: Double,
-        calories: Int,
-        started: DateTime,
-        userId: Int, ): HttpResponse<JsonNode> {
-        return Unirest.patch(origin + "/api/activities/$id")
-            .body("""{
-                  "description":"$description",
-                  "duration":$duration,
-                  "calories":$calories,
-                  "started":"$started",
-                  "userId":$userId
-                }
-                """.trimIndent(),
-            ).asJson()
+            assertEquals(201, response.status)
+        }
+
+        @Test
+        fun `adding an activity for a non-existing user returns 404`() {
+            val response = Unirest.post("$origin/api/activities")
+                .body(
+                    """{
+                        "description": "Swimming",
+                        "duration": 60.0,
+                        "calories": 400,
+                        "started": "2024-12-26T12:00:00",
+                        "userId": $invalidUserId
+                    }"""
+                ).asJson()
+
+            assertEquals(404, response.status)
+        }
     }
 
     @Nested
     inner class ReadActivities {
 
         @Test
-        fun `get all activities from the database returns 200 or 404 response`() {
-            val response = Unirest.get(origin + "/api/activities/").asString()
+        fun `get all activities returns 200 when activities exist`() {
+            val response = Unirest.get("$origin/api/activities").asJson()
             assertEquals(200, response.status)
         }
-    }
 
+        @Test
+        fun `get all activities returns 404 when no activities exist`() {
+            // Mock or ensure no activities exist in the database
+            val response = Unirest.get("$origin/api/activities").asJson()
+            assertEquals(404, response.status)
+        }
+
+        @Test
+        fun `get activities by valid user ID returns 200`() {
+            val response = Unirest.get("$origin/api/activities/user/$validUserId").asJson()
+            assertEquals(200, response.status)
+        }
+
+        @Test
+        fun `get activities by invalid user ID returns 404`() {
+            val response = Unirest.get("$origin/api/activities/user/$invalidUserId").asJson()
+            assertEquals(404, response.status)
+        }
+    }
 
     @Nested
     inner class UpdateActivities {
 
         @Test
-        fun `updating a activity when it doesn't exist, returns a 404 response`() {
+        fun `updating an existing activity returns 204`() {
+            val response = Unirest.patch("$origin/api/activities/$validActivityId")
+                .body(
+                    """{
+                        "description": "Cycling",
+                        "duration": 45.0,
+                        "calories": 300,
+                        "started": "2024-12-26T15:00:00",
+                        "userId": $validUserId
+                    }"""
+                ).asJson()
 
-            val userId = -1
-            val activityID = -1
+            assertEquals(204, response.status)
+        }
 
-            //Arrange - creating some text fixture data
-            assertEquals(404, retrieveUserById(userId).status)
+        @Test
+        fun `updating a non-existing activity returns 404`() {
+            val response = Unirest.patch("$origin/api/activities/$invalidActivityId")
+                .body(
+                    """{
+                        "description": "Yoga",
+                        "duration": 60.0,
+                        "calories": 200,
+                        "started": "2024-12-26T16:00:00",
+                        "userId": $validUserId
+                    }"""
+                ).asJson()
 
-            //Act & Assert - attempt to update the email and name of activity that doesn't exist
-            assertEquals(404,
-                updateActivity(
-                    activityID,
-                    updatedDescription,
-                    updatedDuration,
-                    updatedCalories,
-                    updatedStarted,
-                    userId,
-                ).status,
-            )
+            assertEquals(404, response.status)
         }
     }
 
-}
+    @Nested
+    inner class DeleteActivities {
 
+        @Test
+        fun `deleting an existing activity returns 204`() {
+            val response = Unirest.delete("$origin/api/activities/$validActivityId").asString()
+            assertEquals(204, response.status)
+        }
+
+        @Test
+        fun `deleting a non-existing activity returns 404`() {
+            val response = Unirest.delete("$origin/api/activities/$invalidActivityId").asString()
+            assertEquals(404, response.status)
+        }
+    }
+}

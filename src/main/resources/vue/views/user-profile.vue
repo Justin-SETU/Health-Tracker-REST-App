@@ -96,16 +96,18 @@ app.component("user-profile", {
         })
   },
   methods: {
+
     updateUser: function () {
       const userId = this.$javalin.pathParams["user-id"];
+      const url = `/api/users/update/${userId}`;  // Correct endpoint for updating the user
       axios.patch(url, {
         name: this.user.name,
         email: this.user.email,
         password: this.user.password
       })
           .then(response => {
-            console.log(response.data);
-            this.user = response.data;
+            console.log(response.data); // Log response data here
+            this.user = response.data; // Update user object after successful update
           })
           .catch(error => {
             console.log(error); // Log the error if the request fails
@@ -116,18 +118,20 @@ app.component("user-profile", {
     deleteUser: function () {
       if (confirm("Do you really want to delete?")) {
         const userId = this.$javalin.pathParams["user-id"];
-        const url = `/api/users/delete/{user-id}`
+        const url = `/api/users/delete/${userId}`; // Correctly replace {user-id} with the dynamic userId
         axios.delete(url)
             .then(response => {
-              alert("User deleted")
-              //display the /users endpoint
+              alert("User deleted");
+              // Redirect to the /users endpoint
               window.location.href = '/users';
             })
             .catch(function (error) {
-              console.log(error)
+              console.log("Error while deleting user:", error);
             });
       }
-    }
+    },
+
   }
+
 });
 </script>

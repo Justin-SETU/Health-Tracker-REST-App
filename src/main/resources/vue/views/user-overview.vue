@@ -81,7 +81,7 @@ app.component("user-overview", {
       if (confirm('Are you sure you want to delete this user? This action cannot be undone.', 'Warning')) {
         //user confirmed delete
         const userId = user.id;
-        const url = `/api/users/${userId}`;
+        const url = `/api/users/delete/{user-id}`;
         axios.delete(url)
             .then(response =>
                 //delete from the local state so Vue will reload list automatically
@@ -97,7 +97,8 @@ app.component("user-overview", {
       axios.post(url,
           {
             name: this.formData.name,
-            email: this.formData.email
+            email: this.formData.email,
+            password: this.formData.password
           })
           .then(response => {
             this.users.push(response.data)

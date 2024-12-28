@@ -31,4 +31,4 @@ jobs:
           java-version: '17'
           cache: 'maven'
       - name: Maven Verify with Debug
-      run: mvn -B clean verify -X
+        run: mvn -B clean verify -X

@@ -111,24 +111,24 @@ class MealDAOTest {
     }
 
 
-//    @Nested
-//    inner class CreateMeal {
-//        @Test
-//        fun `multiple meal added to table can be retrieved successfully`() {
-//            transaction {
-//
-//                //Arrange - create and populate table with three meal
-//                populateUserTable()
-//                val mealDAO = populateMealTable()
-//
-//                //Act & Assert
-//                assertEquals(3, mealDAO.getAll().size)
-//                assertEquals(meal1, mealDAO.findByMealId(meal1.id))
-//                assertEquals(meal2, mealDAO.findByMealId(meal2.id))
-//                assertEquals(meal3, mealDAO.findByMealId(meal3.id))
-//            }
-//        }
-//    }
+    @Nested
+    inner class CreateMeal {
+        @Test
+        fun `multiple meal added to table can be retrieved successfully`() {
+            transaction {
+
+                //Arrange - create and populate table with three meal
+                populateUserTable()
+                val mealDAO = populateMealTable()
+
+                //Act & Assert
+                assertEquals(3, mealDAO.getAll().size)
+                assertEquals(meal1, mealDAO.findByMealId(meal1.id))
+                assertEquals(meal2, mealDAO.findByMealId(meal2.id))
+                assertEquals(meal3, mealDAO.findByMealId(meal3.id))
+            }
+        }
+    }
 
     @Nested
     inner class DeleteMeals {

@@ -43,6 +43,7 @@
             <input type="email" class="form-control" v-model="user.email" name="email" placeholder="Email"/>
           </div>
       </div>
+
       <div class="card-footer text-left">
         <p  v-if="activities.length === 0"> No activities yet...</p>
         <p  v-if="activities.length > 0"> Activities so far...</p>
@@ -62,6 +63,48 @@
           </li>
         </ul>
       </div>
+
+      <div class="card-footer text-left">
+        <p  v-if="steps.length === 0"> No Step counts yet...</p>
+        <p  v-if="steps.length > 0"> Step Counts so far...</p>
+        <ul>
+          <li v-for="step in steps">
+            User have Step Count {{step.stepcount}}
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-footer text-left">
+        <p  v-if="meals.length === 0"> No Meals yet...</p>
+        <p  v-if="meals.length > 0"> Meals so far...</p>
+        <ul>
+          <li v-for="meal in meals">
+            User have a {{meal.food}}
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-footer text-left">
+        <p  v-if="sleeps.length === 0"> No Sleep counts yet...</p>
+        <p  v-if="sleeps.length > 0"> Sleep counts so far...</p>
+        <ul>
+          <li v-for="sleep in sleeps">
+            User have a sleeps of {{sleep.duration}} hours
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-footer text-left">
+        <p  v-if="waters.length === 0"> No water counts yet...</p>
+        <p  v-if="waters.length > 0"> Water counts so far...</p>
+        <ul>
+          <li v-for="water in waters">
+            User have {{water.waterintake}} glasses of water
+          </li>
+        </ul>
+      </div>
+
+
     </div>
   </app-layout>
 </template>
@@ -73,7 +116,11 @@ app.component("user-profile", {
     user: null,
     noUserFound: false,
     activities: [],
-    bmis: [],
+    bmis:[],
+    steps: [],
+    meals:[],
+    sleeps: [],
+    waters:[],
   }),
   created: function () {
     const userId = this.$javalin.pathParams["user-id"];
@@ -94,6 +141,28 @@ app.component("user-profile", {
         .catch(error => {
           console.log("No BMI value added yet (this is ok): " + error)
         })
+    axios.get(url + `/steps`)
+        .then(res => this.steps = res.data)
+        .catch(error => {
+          console.log("No step counts  added yet (this is ok): " + error)
+        })
+    axios.get(url + `/meal`)
+        .then(res => this.meals = res.data)
+        .catch(error => {
+          console.log("No meals added yet (this is ok): " + error)
+        })
+    axios.get(url + `/sleep`)
+        .then(res => this.sleeps = res.data)
+        .catch(error => {
+          console.log("No sleeps added yet (this is ok): " + error)
+        })
+    axios.get(url + `/water`)
+        .then(res => this.waters = res.data)
+        .catch(error => {
+          console.log("No water logs added yet (this is ok): " + error)
+        })
+
+
   },
   methods: {
 

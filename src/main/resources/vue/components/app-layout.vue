@@ -3,7 +3,7 @@
     <div class="container">
       <!-- Start of navbar -->
       <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="/">Health Tracker</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +29,14 @@
         </div>
       </div>
       <!--End of main content area-->
+      <!-- Start of footer -->
+      <footer class="footer mt-5">
+        <div class="container text-center py-3">
+          <p>&copy; 2024 Health Tracker. All rights reserved.</p>
+          <p>Made by Justin, MSc ISP</p>
+        </div>
+      </footer>
+      <!-- End of footer -->
     </div>
   </div>
 </template>
@@ -40,6 +48,15 @@ app.component("app-layout", {template: "#app-layout"});
 
 <style>
 .navbar {
-  background-color: #e3f2fd;
+  background-color: #fff9c4;
 }
+
+.content {
+  background-color: #fff8e1;
+}
+
+.footer {
+  background-color: #fff7d6;
+}
+
 </style>

@@ -42,7 +42,6 @@
             </div>
             <input type="email" class="form-control" v-model="user.email" name="email" placeholder="Email"/>
           </div>
-        </form>
       </div>
       <div class="card-footer text-left">
         <p  v-if="activities.length === 0"> No activities yet...</p>
@@ -50,6 +49,16 @@
         <ul>
           <li v-for="activity in activities">
             {{ activity.description }} for {{ activity.duration }} minutes
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-footer text-left">
+        <p  v-if="bmis.length === 0"> No bmis yet...</p>
+        <p  v-if="bmis.length > 0"> BMI summary so far...</p>
+        <ul>
+          <li v-for="bmi in bmis">
+            User have bmi value {{bmi.bmivalue}}
           </li>
         </ul>
       </div>
@@ -64,6 +73,7 @@ app.component("user-profile", {
     user: null,
     noUserFound: false,
     activities: [],
+    bmis: [],
   }),
   created: function () {
     const userId = this.$javalin.pathParams["user-id"];
@@ -79,38 +89,49 @@ app.component("user-profile", {
         .catch(error => {
           console.log("No activities added yet (this is ok): " + error)
         })
+    axios.get(url + `/bmis`)
+        .then(res => this.bmis = res.data)
+        .catch(error => {
+          console.log("No BMI value added yet (this is ok): " + error)
+        })
   },
   methods: {
+
     updateUser: function () {
       const userId = this.$javalin.pathParams["user-id"];
-      const url = `/api/users/${userId}`
-      axios.patch(url,
-          {
-            name: this.user.name,
-            email: this.user.email
+      const url = `/api/users/update/${userId}`;  // Correct endpoint for updating the user
+      axios.patch(url, {
+        name: this.user.name,
+        email: this.user.email,
+        password: this.user.password
+      })
+          .then(response => {
+            console.log(response.data); // Log response data here
+            this.user = response.data; // Update user object after successful update
           })
-          .then(response =>
-              this.user.push(response.data))
           .catch(error => {
-            console.log(error)
-          })
-      alert("User updated!")
+            console.log(error); // Log the error if the request fails
+          });
+      alert("User updated!");
     },
+
     deleteUser: function () {
       if (confirm("Do you really want to delete?")) {
         const userId = this.$javalin.pathParams["user-id"];
-        const url = `/api/users/${userId}`
+        const url = `/api/users/delete/${userId}`; // Correctly replace {user-id} with the dynamic userId
         axios.delete(url)
             .then(response => {
-              alert("User deleted")
-              //display the /users endpoint
+              alert("User deleted");
+              // Redirect to the /users endpoint
               window.location.href = '/users';
             })
             .catch(function (error) {
-              console.log(error)
+              console.log("Error while deleting user:", error);
             });
       }
-    }
+    },
+
   }
+
 });
 </script>

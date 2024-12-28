@@ -13,13 +13,33 @@
       </div>
       <div class="col">
         <div class="card">
-          <h5 class="card-header">Total Activities</h5>
+          <h5 class="card-header">Activities Summary</h5>
           <div class="card-body">
             <h5 class="card-title">{{activities.length}} activities</h5>
             <a href="/activities" class="btn btn-primary">More Details...</a>
           </div>
         </div>
       </div>
+      <div class="row mt-3">
+        <div class="col">
+          <div class="card">
+            <h5 class="card-header">BMI Summary</h5>
+            <div class="card-body">
+              <h5 class="card-title">{{bmis.length}} BMI records</h5>
+              <a href="/bmi" class="btn btn-primary">More Details...</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h5 class="card-header">Steps Summary</h5>
+            <div class="card-body">
+              <h5 class="card-title">{{steps.length}} steps records</h5>
+              <a href="/step" class="btn btn-primary">More Details...</a>
+            </div>
+          </div>
+        </div>
+
     </div>
   </app-layout>
 </template>
@@ -30,7 +50,9 @@ app.component('home-page',
       template: "#home-page",
       data: () => ({
         users: [],
-        activities: []
+        activities: [],
+        bmis: [],
+        steps: []
       }),
       created() {
         axios.get("/api/users")
@@ -39,6 +61,12 @@ app.component('home-page',
         axios.get("/api/activities")
             .then(res => this.activities = res.data)
             .catch(() => alert("Error while fetching activities"));
+        axios.get("/api/bmi")
+            .then(res => this.bmis = res.data)
+            .catch(() => alert("Error while fetching bmis"));
+        axios.get("/api/steps")
+            .then(res => this.steps = res.data)
+            .catch(() => alert("Error while fetching steps"));
       }
     });
 </script>

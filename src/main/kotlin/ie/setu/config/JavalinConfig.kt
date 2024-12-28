@@ -52,7 +52,7 @@ class JavalinConfig {
         //Bmi Features
         app.get("/api/bmi", BMIController ::getAllBmis)
         app.post("/api/bmi/add", BMIController::addBmi)
-        app.get("/api/bmi/{user-id}", BMIController:: getBmisByUserId)
+        app.get("/api/users/{user-id}/bmis", BMIController:: getBmisByUserId)
         app.delete("/api/bmi/{id}", BMIController::deleteBmiById)
         app.patch("/api/bmi/update/{id}", BMIController::updateBmi)
         //----------------------------------
@@ -115,6 +115,12 @@ class JavalinConfig {
         app.get("/users", VueComponent("<user-overview></user-overview>"))
         app.get("/users/{user-id}", VueComponent("<user-profile></user-profile>"))
         app.get("/users/{user-id}/activities", VueComponent("<user-activity-overview></user-activity-overview>"))
+        app.get("/activities", VueComponent("<activity-overview></activity-overview>"))
+        app.get("/bmi", VueComponent("<bmi-overview></bmi-overview>"))
+        app.get("/users/{user-id}/bmi", VueComponent("<user-bmi-overview></user-bmi-overview>"))
+        app.get("/step", VueComponent("<steps-overview></steps-overview>"))
+
+
     }
     
     private fun getRemoteAssignedPort(): Int {

@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="94a1eaf0-4fd2-4187-9580-9c1bca90ffa2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/health-tracker-api.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/health-tracker-api.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/vue/views/user-overview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/vue/views/user-overview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/vue/views/user-profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/vue/views/user-profile.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
+        <option value="Vue Options API Component" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -72,13 +74,15 @@
   "keyToString": {
     "JUnit.ActivityControllerTest.executor": "Run",
     "JUnit.ActivityDAOTest.executor": "Coverage",
+    "JUnit.BMIControllerTest.executor": "Run",
     "JUnit.BmiDAOTest.executor": "Coverage",
     "JUnit.HealthTrackerControllerTest.executor": "Coverage",
     "JUnit.LogDAOTest.executor": "Coverage",
     "JUnit.MealDAOTest.executor": "Coverage",
     "JUnit.SleepDAOTest.executor": "Coverage",
+    "JUnit.StepControllerTest.executor": "Run",
     "JUnit.StepDAOTest.executor": "Coverage",
-    "JUnit.UserControllerTest.executor": "Coverage",
+    "JUnit.UserControllerTest.executor": "Run",
     "JUnit.UserDAOTest.executor": "Coverage",
     "JUnit.WaterDAOTest.executor": "Coverage",
     "JUnit.WorkoutDAOTest.executor": "Coverage",
@@ -86,7 +90,7 @@
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "Maven.Health-tracker-rest [validate].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "unittest",
+    "git-widget-placeholder": "vue",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Coding/Kotlin/Interim Submission/Coverage Report/ActivityControllerTest",
     "node.js.detected.package.eslint": "true",
@@ -97,9 +101,14 @@
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Options API Component"
+    ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.SleepDAOTest">
+  <component name="RunManager">
     <configuration name="LogDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Health-tracker-rest" />
       <extension name="coverage">
@@ -347,7 +356,7 @@
       <FILTER>ie.setu.repository.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Health_tracker_rest$StepDAOTest.ic" NAME="StepDAOTest Coverage Results" MODIFIED="1735159886103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$StepDAOTest.ic" NAME="StepDAOTest Coverage Results" MODIFIED="1735217340591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
       <FILTER>ie.setu.*</FILTER>
     </SUITE>
@@ -358,9 +367,8 @@
     <SUITE FILE_PATH="coverage/Health_tracker_rest$ActivityControllerTest.ic" NAME="ActivityControllerTest Coverage Results" MODIFIED="1731832080657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.controllers.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Health_tracker_rest$SleepDAOTest.ic" NAME="SleepDAOTest Coverage Results" MODIFIED="1735159912114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/Health_tracker_rest$SleepDAOTest.ic" NAME="SleepDAOTest Coverage Results" MODIFIED="1735217306336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.repository.*</FILTER>
-      <FILTER>ie.setu.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Health_tracker_rest$UserControllerTest.ic" NAME="UserControllerTest Coverage Results" MODIFIED="1731831995264" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>ie.setu.controllers.*</FILTER>

@@ -11,6 +11,8 @@ val nonExistingEmail = "112233445566778testUser@xxxxx.xx"
 val validName = "Test User 2"
 val validEmail = "testuser2@test.com"
 val validPassword = "passwor123"
+val validUserId = 1
+
 
 val updatedDescription = "Updated Description"
 val updatedDuration = 30.0

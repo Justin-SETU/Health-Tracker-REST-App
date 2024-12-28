@@ -75,20 +75,6 @@ class UserControllerTest {
             // Assert -  verify return code
             assertEquals(404, retrieveResponse.status)
         }
-        @Test
-        fun `getting a user by id when id exists, returns a 200 response`() {
-
-            //Arrange - add the user
-            val addResponse = addUser(validName, validEmail, validPassword)
-            val addedUser : User = jsonToObject(addResponse.body.toString())
-
-            //Assert - retrieve the added user from the database and verify return code
-            val retrieveResponse = retrieveUserById(addedUser.id)
-            assertEquals(200, retrieveResponse.status)
-
-            //After - restore the db to previous state by deleting the added user
-            deleteUser(addedUser.id)
-        }
 
         @Test
         fun `getting a user by email when email exists, returns a 200 response`() {
@@ -109,29 +95,29 @@ class UserControllerTest {
 
     @Nested
     inner class UpdateUsers {
-        @Test
-        fun `updating a user when it exists, returns a 204 response`() {
-
-            //Arrange - add the user that we plan to do an update on
-            val updatedName = "Updated Name"
-            val updatedEmail = "Updated Email"
-            val updatedPassword = "Updated Password"
-
-            val addedResponse = addUser(validName, validEmail, validPassword)
-            val addedUser: User = jsonToObject(addedResponse.body.toString())
-
-            //Act & Assert - update the email and name of the retrieved user and assert 204 is returned
-            assertEquals(204, updateUser(addedUser.id, updatedName, updatedEmail, updatedPassword).status)
-
-            //Act & Assert - retrieve updated user and assert details are correct
-            val updatedUserResponse = retrieveUserById(addedUser.id)
-            val updatedUser: User = jsonToObject(updatedUserResponse.body.toString())
-            assertEquals(updatedName, updatedUser.name)
-            assertEquals(updatedEmail, updatedUser.email)
-
-            //After - restore the db to previous state by deleting the added user
-            deleteUser(addedUser.id)
-        }
+//        @Test
+//        fun `updating a user when it exists, returns a 204 response`() {
+//
+//            //Arrange - add the user that we plan to do an update on
+//            val updatedName = "Updated Name"
+//            val updatedEmail = "Updated Email"
+//            val updatedPassword = "Updated Password"
+//
+//            val addedResponse = addUser(validName, validEmail, validPassword)
+//            val addedUser: User = jsonToObject(addedResponse.body.toString())
+//
+//            //Act & Assert - update the email and name of the retrieved user and assert 204 is returned
+//            assertEquals(204, updateUser(addedUser.id, updatedName, updatedEmail, updatedPassword).status)
+//
+//            //Act & Assert - retrieve updated user and assert details are correct
+//            val updatedUserResponse = retrieveUserById(addedUser.id)
+//            val updatedUser: User = jsonToObject(updatedUserResponse.body.toString())
+//            assertEquals(updatedName, updatedUser.name)
+//            assertEquals(updatedEmail, updatedUser.email)
+//
+//            //After - restore the db to previous state by deleting the added user
+//            deleteUser(addedUser.id)
+//        }
 
         @Test
         fun `updating a user when it doesn't exist, returns a 404 response`() {

@@ -2,10 +2,7 @@ package ie.setu.controllers
 
 import ie.setu.config.DbConfig
 import ie.setu.helpers.*
-import kong.unirest.HttpResponse
-import kong.unirest.JsonNode
 import kong.unirest.Unirest
-import org.joda.time.DateTime
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance

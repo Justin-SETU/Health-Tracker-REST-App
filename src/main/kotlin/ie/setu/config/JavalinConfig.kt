@@ -60,7 +60,7 @@ class JavalinConfig {
         //Workout Features
         app.get("/api/workouts", WorkoutController::getAllWorkouts)
         app.post("/api/workouts/add", WorkoutController::addWorkout)
-        app.get("/api/users/workouts/{user-id}", WorkoutController::getWorkoutsByUserId)
+        app.get("/api/users/{user-id}/workouts", WorkoutController::getWorkoutsByUserId)
         app.delete("/api/workouts/{user-id}", WorkoutController::deleteWorkoutById)
         app.patch("/api/workouts/update/{id}", WorkoutController::updateWorkout)
         //----------------------------------
@@ -68,7 +68,7 @@ class JavalinConfig {
         //Status Features
         app.get("/api/log", LogController ::getAllLogs)
         app.post("/api/log/add", LogController::addLog)
-        app.get("/api/log/{user-id}", LogController:: getLogsByUserId)
+        app.get("/api/users/{user-id}/log", LogController:: getLogsByUserId)
         app.delete("/api/log/{id}", LogController::deleteLogById)
         app.patch("/api/log/update/{id}", LogController::updateLog)
         //---------------------
@@ -76,7 +76,7 @@ class JavalinConfig {
         //Step Features
         app.get("/api/steps", StepController ::getAllStep)
         app.post("/api/steps/add", StepController::addStep)
-        app.get("/api/steps/{user-id}", StepController:: getStepByUserId)
+        app.get("/api/users/{user-id}/steps", StepController:: getStepByUserId)
         app.delete("/api/steps/{id}", StepController::deleteStepById)
         app.patch("/api/steps/update/{id}", StepController::updateStep)
         //----------------------------------
@@ -84,7 +84,7 @@ class JavalinConfig {
         //Sleep Features
         app.get("/api/sleep", SleepController ::getAllSleep)
         app.post("/api/sleep/add", SleepController::addSleep)
-        app.get("/api/sleep/{user-id}", SleepController:: getSleepByUserId)
+        app.get("/api/users/{user-id}/sleep", SleepController:: getSleepByUserId)
         app.delete("/api/sleep/{id}", SleepController::deleteSleepById)
         app.patch("/api/sleep/update/{id}", SleepController::updateSleep)
         //----------------------------------
@@ -92,7 +92,7 @@ class JavalinConfig {
         //Water Features
         app.get("/api/water", WaterController ::getAllWater)
         app.post("/api/water/add", WaterController::addWater)
-        app.get("/api/water/{user-id}", WaterController:: getWaterByUserId)
+        app.get("/api/users/{user-id}/water", WaterController:: getWaterByUserId)
         app.delete("/api/water/{id}", WaterController::deleteWaterById)
         app.patch("/api/water/update/{id}", WaterController::updateWater)
         //----------------------------------
@@ -100,7 +100,7 @@ class JavalinConfig {
         //Meal Features
         app.get("/api/meal", MealController ::getAllMeal)
         app.post("/api/meal/add", MealController::addMeal)
-        app.get("/api/meal/{user-id}", MealController:: getMealByUserId)
+        app.get("/api/users/{user-id}/meal", MealController:: getMealByUserId)
         app.delete("/api/meal/{id}", MealController::deleteMealById)
         app.patch("/api/meal/update/{id}", MealController::updateMeal)
         //----------------------------------
